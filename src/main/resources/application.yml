@@ -1,0 +1,6 @@
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    # 开发禁用缓存
+    cache: true
