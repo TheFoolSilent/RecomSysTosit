@@ -1,3 +1,4 @@
+
 function signin() {
     if ($('#username').val() != '' && $('#password').val() != '') {
         $.ajax(
@@ -64,4 +65,38 @@ function Post()
     }else{
         alert("两次密码不一致，请重新输入！");
     }
+}
+
+$("#conform").click(function () {
+    var formData = new FormData();
+    formData.append("file",$("#fileupload")[0].files[0]);
+    formData.append("service",'App.Passion.UploadFile');
+    // formData.append("token",token);
+    $.ajax({
+        url:'/uploadfile', /*接口域名地址*/
+        type:'post',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(res){
+            console.log(res);
+            if(res["msg"]=="success"){
+                alert('成功');
+            }else if(res["msg"]=="error"){
+                alert('失败');
+            }else{
+                console.log(res);
+            }
+        }
+    })
+})
+
+
+
+function f() {
+    for(i){
+        var str = `<li>?      </li>`.format(i)
+    }
+
+    $("#filelist").html5();
 }
