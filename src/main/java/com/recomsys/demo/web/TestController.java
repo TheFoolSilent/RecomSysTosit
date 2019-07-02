@@ -19,13 +19,38 @@ public class TestController {
      */
     @RequestMapping("/")
     public String hello() {
-        return "user_login.html";
+        return "index";
+    }
+
+    @RequestMapping("/contact")
+    public String hello1() {
+        return "contact";
+    }
+
+    @RequestMapping("/resume")
+    public String hello2() {
+        return "resume";
+    }
+
+    @RequestMapping("/job-board")
+    public String hello3() {
+        return "job-board";
+    }
+
+    @RequestMapping("/administer")
+    public String hello4() {
+        return "administer";
+    }
+
+    @RequestMapping("/ability-evaluate")
+    public String hello5() {
+        return "ability_evaluate";
     }
 
 
     @RequestMapping("/uploadurl")
     public String upload() {
-        return "upload.html";
+        return "upload";
     }
 
 
@@ -188,7 +213,7 @@ public class TestController {
 
     @RequestMapping("/register")
     public String UIRegister() {
-        return "register";
+        return "userregister";
     }
 
 
