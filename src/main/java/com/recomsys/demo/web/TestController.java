@@ -162,11 +162,11 @@ public class TestController {
                 // 设置session存储时间，以秒为单位，3600=60*60即为60分钟
 
                 if (user.getUsername().equals("root")) {
-                    result.put("msg", "1");
-                    result.put("description", "user success");
-                } else {
                     result.put("msg", "0");
                     result.put("description", "root success");
+                } else {
+                    result.put("msg", "1");
+                    result.put("description", "user success");
                 }
 
 
