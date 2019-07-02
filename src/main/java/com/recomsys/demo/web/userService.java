@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JAVA User Account Util
+ * **/
+
 public class userService {
 
     private static String path = "data/user.txt";
