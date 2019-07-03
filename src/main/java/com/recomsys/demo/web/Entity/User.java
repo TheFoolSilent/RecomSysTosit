@@ -1,4 +1,4 @@
-package com.recomsys.demo.web;
+package com.recomsys.demo.web.Entity;
 
 public class User {
     public String username;

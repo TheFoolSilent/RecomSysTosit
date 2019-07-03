@@ -1,6 +1,7 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.recomsys.demo.web.Entity.Skill;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

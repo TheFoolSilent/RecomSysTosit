@@ -11,52 +11,50 @@ function signin() {
 //         //     $.cookie("password", $("#password").val(), { path: "/", expires: 7 });
 //         //
 //         // }
-        $('#login_url').submit();
-//
-//         // else {
-//         //     $.cookie("username", "", { path: "/", expires: -1 });
-//         //     $.cookie("password", "", { path: "/", expires: -1 });
-//         // }
-//
-//         // $.ajax(
-//         //     {
-//         //         contentType: "application/json",
-//         //         type: "POST",
-//         //         datatype: "json",
-//         //         url: "/login",
-//         //         data: JSON.stringify({"username": $('#username').val(), "password": $('#password').val()}),
-//         //         success: function (result) {
-//         //             // console.log(result);
-//         //             var datajson = eval("(" + result + ")");
-//         //             if (datajson.msg == "1") { // user
-//         //                 alert("登录成功！");
-//         //                 $('#productModal').modal("hide");
-//         //
-//         //                 // $.cookie("username", datajson.username, { expires: 7 });
-//         //                 // $.cookie("password", datajson.password, { expires: 7 });
-//         //
-//         //                 // $('#loginpos').html("<label>" + datajson.username + "</label>");
-//         //
-//         //             }
-//         //             else if(datajson.msg == "0") {  // root
-//         //
-//         //                 // $.cookie("username", datajson.username, { expires: 7 });
-//         //                 // $.cookie("password", datajson.password, { expires: 7 });
-//         //
-//         //                 window.location.replace('http://localhost:8080/administer');
-//         //             }
-//         //             else
-//         //                 alert("输入错误！");
-//         //
-//         //         },
-//         //         error: function (result) {
-//         //             var datajson = eval("(" + result + ")");
-//         //             alert(datajson.description);
-//         //         }
-//         //     });
-//
-//
-//
+//         $('#login_url').submit();
+
+        // else {
+        //     $.cookie("username", "", { path: "/", expires: -1 });
+        //     $.cookie("password", "", { path: "/", expires: -1 });
+        // }
+
+        $.ajax(
+            {
+                contentType: "application/json",
+                type: "POST",
+                datatype: "json",
+                url: "/login",
+                data: JSON.stringify({"username": $('#username').val(), "password": $('#password').val()}),
+                success: function (result) {
+                    // console.log(result);
+                    var datajson = eval("(" + result + ")");
+                    if (datajson.msg == "1") { // user
+                        alert("登录成功！");
+                        // $('#productModal').modal("hide");
+                        window.location.reload();
+                        // $.cookie("username", datajson.username, { expires: 7 });
+                        // $.cookie("password", datajson.password, { expires: 7 });
+
+                        // $('#loginpos').html("<label>" + datajson.username + "</label>");
+
+                    }
+                    else if(datajson.msg == "0") {  // root
+
+                        // $.cookie("username", datajson.username, { expires: 7 });
+                        // $.cookie("password", datajson.password, { expires: 7 });
+
+                        window.location.replace('http://localhost:8080/administer');
+                    }
+                    else
+                        alert("输入错误！");
+
+                },
+                error: function (result) {
+                    var datajson = eval("(" + result + ")");
+                    alert(datajson.description);
+                }
+            });
+
     } else
         alert("账号密码不可为空！");
 }

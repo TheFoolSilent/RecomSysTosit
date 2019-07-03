@@ -15,15 +15,14 @@ public class PageController {
      * RequestMapping作用 ： 提供路由信息，负责URL到Controller中的具体函数的映射
      */
     @RequestMapping("/")
-    public String hello(Model m, HttpServletRequest httpServletRequest) {
+    public String homepage(Model m, HttpServletRequest httpServletRequest) {
 
         String label;
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("username") == null) {
-            label = "<a class='modal-view button' href='#' data-toggle"+
-                    "='modal' data-target='#productModal'>Login</a>";
+            label = "null";
         }else{
-            label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            label = session.getAttribute("username").toString();
         }
 
         m.addAttribute("chooseuser", label);
@@ -32,14 +31,13 @@ public class PageController {
 
 
     @RequestMapping("/contact")
-    public String hello1(Model m, HttpServletRequest httpServletRequest) {
+    public String contactpage(Model m, HttpServletRequest httpServletRequest) {
         String label;
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("username") == null) {
-            label = "<a class='modal-view button' href='#' data-toggle"+
-                    "='modal' data-target='#productModal'>Login</a>";
+            label = "null";
         }else{
-            label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            label = session.getAttribute("username").toString();
         }
 
         m.addAttribute("chooseuser", label);
@@ -48,14 +46,14 @@ public class PageController {
 
 
     @RequestMapping("/resume")
-    public String hello2(Model m, HttpServletRequest httpServletRequest){
+    public String resumepage(Model m, HttpServletRequest httpServletRequest){
 
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("username") == null) {
             return "redirect:/";
 
         }else{
-            String label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            String label = session.getAttribute("username").toString();
             m.addAttribute("chooseuser", label);
             return "resume";
         }
@@ -63,14 +61,13 @@ public class PageController {
 
 
     @RequestMapping("/job-board")
-    public String hello3(Model m, HttpServletRequest httpServletRequest) {
+    public String job_boradpage(Model m, HttpServletRequest httpServletRequest) {
         String label;
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("username") == null) {
-            label = "<a class='modal-view button' href='#' data-toggle"+
-                    "='modal' data-target='#productModal'>Login</a>";
+            label = "null";
         }else{
-            label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            label = session.getAttribute("username").toString();
         }
 
         m.addAttribute("chooseuser", label);
@@ -79,14 +76,13 @@ public class PageController {
 
 
     @RequestMapping("/ability-evaluate")
-    public String hello5(Model m, HttpServletRequest httpServletRequest) {
+    public String ablitypage(Model m, HttpServletRequest httpServletRequest) {
         String label;
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("username") == null) {
-            label = "<a class='modal-view button' href='#' data-toggle"+
-                    "='modal' data-target='#productModal'>Login</a>";
+            label = "null";
         }else{
-            label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            label = session.getAttribute("username").toString();
         }
 
         m.addAttribute("chooseuser", label);
@@ -94,10 +90,19 @@ public class PageController {
     }
 
 
-    @RequestMapping("/uploadurl")
-    public String upload() {
-        return "upload";
+    @RequestMapping("/register")
+    public String UIRegister(HttpServletRequest request) {
+        if (request.getSession().getAttribute("username") != null) {
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
+        }
+        return "userregister";
     }
+
+//    @RequestMapping("/uploadurl")
+//    public String upload() {
+//        return "upload";
+//    }
 
 
     @RequestMapping("/administer")
@@ -107,7 +112,7 @@ public class PageController {
 
         if (session.getAttribute("username").toString().equals("root")) {  // root login
             // return root html
-            String label = "<label> " + session.getAttribute("username").toString() +" </label>";
+            String label = session.getAttribute("username").toString();
             m.addAttribute("chooseuser", label);
             return "administer";
 

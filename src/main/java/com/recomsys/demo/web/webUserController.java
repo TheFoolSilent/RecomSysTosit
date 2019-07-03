@@ -1,8 +1,9 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.recomsys.demo.web.Entity.Order;
+import com.recomsys.demo.web.Entity.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,13 @@ public class webUserController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String userLogin(User st, HttpServletRequest request) {
+    @ResponseBody
+    public String userLogin(@RequestBody User st, HttpServletRequest request) {
+
+        JSONObject result = new JSONObject();
 
         System.out.println(st.getUsername());
-        if(st.getUsername() == null || st.getPassword() ==null)return "index";
+        if (st.getUsername() == null || st.getPassword() == null) return "index";
 
         try {
             User user = userService.login(st);  // login
@@ -30,12 +34,23 @@ public class webUserController {
                 // 设置session存储时间，以秒为单位，3600=60*60即为60分钟
 
                 if (user.getUsername().equals("root")) {
-                    return "redirect:"+"administer";
+                    result.put("msg", "0");
+                    result.put("description", "root success");
+
+                } else {
+                    result.put("msg", "1");
+                    result.put("description", "user success");
+
                 }
+            } else {
+                result.put("msg", "2");
+                result.put("description", "username or password error");
+
             }
 
-            String referer = request.getHeader("referer");
-            return "redirect:"+referer;
+//            String referer = request.getHeader("referer");
+//            return "redirect:"+referer;
+            return result.toJSONString();
 
         } catch (Exception e) {
 
@@ -49,17 +64,7 @@ public class webUserController {
     }
 
 
-
-    @RequestMapping("/register")
-    public String UIRegister(HttpServletRequest request) {
-        if(request.getSession().getAttribute("username") != null){
-            String referer = request.getHeader("referer");
-            return "redirect:" + referer;
-        }
-        return "userregister";
-    }
-
-
+    // check register
     @PostMapping("/registerraise")
     @ResponseBody
     public String userRegister(@RequestBody User user, HttpServletRequest request) {
@@ -101,4 +106,21 @@ public class webUserController {
     }
 
 
+    // log out
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public String userLogout(@RequestBody Order order, HttpServletRequest request) {
+
+        JSONObject result = new JSONObject();
+
+        if(order.getState() == "1"){
+            HttpSession session = request.getSession();
+            if(session != null){
+                session.invalidate();
+            }
+            result.put("msg", "OK");
+            return result.toJSONString();
+        }
+        return result.toJSONString();
+    }
 }
