@@ -14,6 +14,13 @@ public class PageController {
     /*
      * RequestMapping作用 ： 提供路由信息，负责URL到Controller中的具体函数的映射
      */
+
+    @RequestMapping("/bb")
+    public String bb() {
+        return "test";
+    }
+
+
     @RequestMapping("/")
     public String homepage(Model m, HttpServletRequest httpServletRequest) {
 
@@ -122,5 +129,18 @@ public class PageController {
         return "redirect:" + referer;
     }
 
+
+    /**
+     * test
+     * **/
+    @RequestMapping("/frame")
+    public String gg() {
+        return "gg";
+    }
+
+    @RequestMapping("/ww")
+    public String w() {
+        return "ww";
+    }
 
 }

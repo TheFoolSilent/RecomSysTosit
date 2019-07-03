@@ -16,16 +16,18 @@ import java.util.UUID;
  * **/
 
 public class fileService {
-    public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
+//    public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
 
-    public static List<String> getFillList(){
-        ArrayList<String> filename_set = new ArrayList<>();
-        File file_path = new File(path);
-        File[] files = file_path.listFiles();
-        for (File file : files) {
-            if(file.isFile()){
-                filename_set.add(file.getName());
-            }
+                public static String path = "C:/Users/sky/IdeaProjects/RecomSysTosit/module_input/";
+
+                public static List<String> getFillList(){
+                    ArrayList<String> filename_set = new ArrayList<>();
+                    File file_path = new File(path);
+                    File[] files = file_path.listFiles();
+                    for (File file : files) {
+                        if(file.isFile()){
+                            filename_set.add(file.getName());
+                        }
         }
 
         return filename_set;

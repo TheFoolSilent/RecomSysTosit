@@ -1,7 +1,22 @@
-// Login
+function addRow(){
+    //行的长度
+    var rowlength=document.getElementById("order").rows.length;
+    //得到整个表格对象
+    var order = document.getElementById("order").insertRow(rowlength-1);
+    order.id=rowlength-1;
+    //插入列
+    var cel1=order.insertCell(0).innerHTML="file1";
+
+    var cel4=order.insertCell(1).innerHTML="<input type=\"button\"value=\"Delete\" onclick=\"delRow('"+(rowlength-1)+"')\"/>"+ "<input type=\"checkbox\"\"/>"
+}
+
+function delRow(qwe){
+    var ewq=document.getElementById(qwe).rowIndex;
+    document.getElementById("order").deleteRow(ewq);
+}
+
 
 function signin() {
-
     if ($('#username').val() != '' && $('#password').val() != '') {
 
 //         // if ($("#rememberme").is(":checked")) {
@@ -63,12 +78,9 @@ function signup() {
     window.location.replace('http://localhost:8080/register');
 }
 
-
-// Register
 function Post()
 {
     if($('#r_password').val() == $('#password').val()) {
-        // $("#register_url").submit();
         $.ajax(
             {
                 contentType:"application/json",
@@ -95,8 +107,6 @@ function Post()
     }
 }
 
-
-// upload file
 $("#conform").click(function () {
     var formData = new FormData();
     formData.append("file",$("#fileupload")[0].files[0]);
@@ -109,14 +119,15 @@ $("#conform").click(function () {
         contentType: false,
         processData: false,
         success:function(res){
-            console.log(res);
-            var data = eval("("+result+")");
-            if(data.msg == "success"){
+            // console.log(res);
+            var json = eval("("+res+")");
+            if(json.msg=="success"){
                 alert('成功');
-            }else if(data.msg== "error"){
+                addRow();
+            }else if(json.msg=="error"){
                 alert('失败');
             }else{
-                console.log(res);
+                // console.log(res);
             }
         }
     })
