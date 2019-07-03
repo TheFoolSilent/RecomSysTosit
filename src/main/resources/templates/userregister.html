@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -103,7 +103,7 @@
 <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
                                         </ul>
                                     </nav>
-                                    <div class="login-btn pt-36">
+                                    <div class="login-btn pt-36" th:utext="${chooseuser}" id="loginpos">
                                         <a class="modal-view button" href="#" data-toggle="modal" data-target="#productModal">Login</a>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-<!--                                <form action="#">-->
+<!--                                <form action="\registerraise" method="post" id="register_url">-->
                                     <div class="area-title text-center">
                                         <h2 class="pt-10 pb-10">Login or create an account</h2>
                                     </div>
@@ -174,7 +174,7 @@
                                             <div class="single-info pb-14 fix">
                                                 <label for="name" class="pull-left m-0 lg-text">User Name:</label>
                                                 <div class="form-box col-4 fix">
-                                                    <input type="text" id="name" name="user_name" placeholder="Please enter your name">
+                                                    <input type="text" id="name" name="username" placeholder="Please enter your name">
                                                 </div>
                                             </div>
 <!--                                            <div class="single-info mb-14 fix">-->
@@ -202,7 +202,7 @@
                                         <span class="block conditions fix mt-34"><input type="checkbox" class="p-0 pull-left">I agree with the terms of use</span>
                                         <button class="button button-style-two medium mt-15" onclick="Post()">Continue</button>
                                     </div>
-<!--                                </form>    -->
+<!--                                </form>-->
                             </div>
                         </div>
                     </div>

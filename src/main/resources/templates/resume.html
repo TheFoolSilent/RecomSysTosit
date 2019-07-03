@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -103,7 +103,7 @@
                                             <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
                                         </ul>
                                     </nav>
-                                    <div class="login-btn pt-36">
+                                    <div class="login-btn pt-36" th:utext="${chooseuser}" id="loginpos">
                                         <a class="modal-view button" href="#" data-toggle="modal" data-target="#productModal">Login</a>
                                     </div>
                                 </div>
@@ -409,6 +409,8 @@
 <!--									<h2 class="pt-7 pb-7 pl-40 pr-40">Login</h2>-->
 <!--								</div>-->
 
+<!--                                TODO-->
+
 									<div class="form-box">
                                         <input type="text" id="username" placeholder="User Name" class="mb-14">
                                         <input type="password" id="password" placeholder="Password">
@@ -451,8 +453,8 @@
         
         <!-- nivo slider js
 		========================================================= -->	    
-		<script src="lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>
-		<script src="lib/nivo-slider/home.js" type="text/javascript"></script>
+<!--		<script src="lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript"></script>-->
+<!--		<script src="lib/nivo-slider/home.js" type="text/javascript"></script>-->
         
         <!-- Js plugins included in this file
 		========================================================= -->	
@@ -464,11 +466,11 @@
         
 		<!-- AJax Mail JS
 		========================================================= -->			
-        <script src="js/ajax-mail.js"></script>
+<!--        <script src="js/ajax-mail.js"></script>-->
         
 		<!-- Mail Chimp JS
 		========================================================= -->			
-        <script src="js/jquery.ajaxchimp.min.js"></script>
+<!--        <script src="js/jquery.ajaxchimp.min.js"></script>-->
         
 		<!-- StyleSwitch JS
 		========================================================= -->		

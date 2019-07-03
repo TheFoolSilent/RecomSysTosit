@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
@@ -9,6 +9,16 @@
 <input type="file" name="photo" id="photo" value="" placeholder="免冠照片">
 <input type="button" onclick="postData();" value="下一步" name="" style="width:100px;height:30px;">
 <script type="text/javascript">
+    //判断复选框的选择状态添加cookie
+    // if ($("#remeberyhm").is(":checked")) {
+    //     //存储一个带7天期限的cookie
+    //     $.cookie("yhm", yhm, { expires: 7 });
+    //     $.cookie("mm", mm, { expires: 7 });
+    // }else {
+    //     $.cookie("yhm", "", { expires: -1 });
+    //     $.cookie("mm", "", { expires: -1 });
+    // }
+
     function postData(){
         var formData = new FormData();
         formData.append("file",$("#photo")[0].files[0]);
