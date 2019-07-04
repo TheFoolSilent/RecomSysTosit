@@ -1,7 +1,6 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.recomsys.demo.web.Entity.Order;
 import com.recomsys.demo.web.Entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -107,13 +106,13 @@ public class webUserController {
 
 
     // log out
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout")
     @ResponseBody
-    public String userLogout(@RequestBody Order order, HttpServletRequest request) {
+    public String userLogout(@RequestParam("state") String order, HttpServletRequest request) {
 
         JSONObject result = new JSONObject();
 
-        if(order.getState() == "1"){
+        if(order.equals("1")){
             HttpSession session = request.getSession();
             if(session != null){
                 session.invalidate();

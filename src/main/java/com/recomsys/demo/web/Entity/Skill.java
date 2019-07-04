@@ -4,6 +4,16 @@ import java.util.List;
 
 public class Skill {
     private String wantjob;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     private List<String> skillset;
 
     public String getWantjob() {

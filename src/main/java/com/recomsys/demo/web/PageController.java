@@ -15,11 +15,6 @@ public class PageController {
      * RequestMapping作用 ： 提供路由信息，负责URL到Controller中的具体函数的映射
      */
 
-    @RequestMapping("/bb")
-    public String bb() {
-        return "test";
-    }
-
 
     @RequestMapping("/")
     public String homepage(Model m, HttpServletRequest httpServletRequest) {
@@ -106,16 +101,16 @@ public class PageController {
         return "userregister";
     }
 
-//    @RequestMapping("/uploadurl")
-//    public String upload() {
-//        return "upload";
-//    }
-
 
     @RequestMapping("/administer")
     public String adminpage(HttpServletRequest request, Model m) {
 
         HttpSession session = request.getSession();
+
+        if(session.getAttribute("username") == null){
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
+        }
 
         if (session.getAttribute("username").toString().equals("root")) {  // root login
             // return root html
@@ -141,6 +136,12 @@ public class PageController {
     @RequestMapping("/ww")
     public String w() {
         return "ww";
+    }
+
+
+    @RequestMapping("/bb")
+    public String bb() {
+        return "test";
     }
 
 }

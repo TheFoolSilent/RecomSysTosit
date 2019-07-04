@@ -1,7 +1,11 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.recomsys.demo.ml.JobRec;
+import com.recomsys.demo.ml.SkillRec;
+import com.recomsys.demo.web.Entity.FileOp;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,8 +61,7 @@ public class rootOpController {
 
     @RequestMapping("/operatefile")
     @ResponseBody
-    public String adminFile(@RequestParam(value = "filename") String filename,
-                            @RequestParam(value = "state") String state,
+    public String adminFile(@RequestBody FileOp fileOp,
                             HttpServletRequest httpServletRequest) {
 
         HttpSession session = httpServletRequest.getSession();
@@ -70,9 +73,9 @@ public class rootOpController {
 
         } else if (session.getAttribute("username").toString().equals("root")) {  // root login
 
-            if(state == "2"){
+            if (fileOp.getState() == "2") {
                 // File delete
-                if (fileService.deleteFile(filename)) {
+                if (fileService.deleteFile(fileOp.getFilename())) {
                     msg.put("msg", "success");
                     msg.put("description", "delete Success");
 
@@ -85,19 +88,55 @@ public class rootOpController {
 
                 msg.put("name_list", list_name);
 
-            }else if(state == "1"){  // choose training file
-                if (fileService.chooseFile(filename)) {
-                    msg.put("msg", "success");
-                    msg.put("description", "choose Success");
+            }else{
+                msg.put("msg", "error");
+                msg.put("description", "unknow error");
 
-                } else {
-                    msg.put("msg", "exception");
-                    msg.put("description", "file not found or choose error");
-                }
             }
+        return msg.toJSONString();
 
-            return msg.toJSONString();
+    } else {
+        msg.put("msg", "error");
+        msg.put("description", "Login Overdue");
+        // return error json
+    }
 
+        return msg.toJSONString();
+}
+
+
+    @RequestMapping("/train")
+    @ResponseBody
+    public String trainmodle(@RequestBody FileOp fileOp, HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+
+        JSONObject msg = new JSONObject();
+        if (session.getAttribute("username") == null) {
+            msg.put("msg", "error");
+            msg.put("description", "unknown error");
+
+        } else if (session.getAttribute("username").toString().equals("root")) {  // root login
+
+            // Spark API
+
+            if(fileService.chooseFile(fileOp.getFilename())){
+                JobRec jobrec = new JobRec();
+                SkillRec skillrec = new SkillRec();
+
+                if(jobrec.chgTrainingData() && skillrec.chgTrainingData()){
+                    msg.put("msg", "success");
+                    msg.put("description", "model generation success");
+
+                }else{
+                    msg.put("msg", "error");
+                    msg.put("description", "Train Error");
+
+                }
+
+            }else{
+                msg.put("msg", "error");
+                msg.put("description", "Training File Error");
+            }
 
         } else {
             msg.put("msg", "error");
