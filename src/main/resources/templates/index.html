@@ -45,12 +45,12 @@
     ============================================ -->
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="testhover.css">
-
+    <link rel="stylesheet" href="css/userstyle.css">
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
 </head>
-<body>
+<body onkeydown="keyLogin();" >
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -84,19 +84,27 @@
                             </nav>
 
                             <div class="login-btn pt-36" th:if="${chooseuser ne 'null'}">
-                                <div class="testhover">
-                                    <label class="col-md-4" th:text="${chooseuser}"></label>
-                                    <ul>
-                                        <li>asdf</li>
-                                        <li>foo</li>
+                                    <ul class="hList">
+
+                                        <li>
+                                            <a class="menu">
+                                                <h2 class="menu-title menu-title_2nd" th:text="${chooseuser}">Hello</h2>
+                                                <ul class="menu-dropdown">
+                                                    <li onclick="window.open('/resume','_self')">Edit Resume</li><!--    用a标签和链接将默认展开        -->
+                                                    <li id="logout">Log Out</li>
+                                                </ul>
+                                            </a>
+                                        </li>
+
                                     </ul>
-                                </div>
+
 
                             </div>
 
                             <div class="login-btn pt-36" id="loginpos" th:if="${chooseuser eq 'null'}">
                                 <a class="modal-view button" href="#" data-toggle="modal"
                                    data-target="#productModal">Login</a>
+
                             </div>
 
 
@@ -251,7 +259,7 @@
                         <!--                        <form role="form" action="/login" method="post" id="login_url">-->
 
                         <div class="form-box">
-                            <input type="text" name="username" id="username" placeholder="" class="mb-14">
+                            <input type="text" name="username" id="username" placeholder="username" class="mb-14">
                             <input type="password" name="password" id="password" placeholder="Password">
                         </div>
                         <div class="fix ptb-30">
@@ -261,7 +269,7 @@
                         </div>
 
 
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group btn-group-justified"  role="group" aria-label="...">
                             <div class="btn-group" role="group">
                                 <button id="signi" type="button" class="btn btn-default" onclick="signin()">SIGNIN
                                 </button>
@@ -321,10 +329,18 @@
 
 <script src="js/func.js"></script>
 <script src="js/func_cookies.js"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
 
 
 </body>
 </html>
 
+<script language="JavaScript">
+    function keyLogin(){
+        if (window.event.keyCode==13)  //回车键的键值为13
+            document.getElementByIdx_x("signi").click(); //调用登录按钮的登录事件
+    }//依然有问题未解决
+</script>
 
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  * JAVA File Util
- **/
+ * **/
 
 public class fileService {
     public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
@@ -32,7 +32,7 @@ public class fileService {
 
     }
 
-    public static boolean saveFile(MultipartFile file) {
+    public static boolean saveFile(MultipartFile file){
         if (file.isEmpty()) {
             System.out.println("文件为空");
         }
@@ -52,7 +52,7 @@ public class fileService {
             file.transferTo(dest);  // save file
             return true;
 
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
             return false;
         }
