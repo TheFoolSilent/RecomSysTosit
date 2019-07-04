@@ -110,7 +110,7 @@
             var url = self.options.url;
             $.ajax({
                 type: "GET",
-                url: url,
+                url:  "js/data.json",
                 dataType: "json",
                 success: function(data) {
                     var musjsdata = JSON.stringify(data);
