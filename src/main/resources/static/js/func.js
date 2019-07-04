@@ -1,14 +1,14 @@
-function addRow(){
-    //行的长度
-    var rowlength=document.getElementById("order").rows.length;
-    //得到整个表格对象
-    var order = document.getElementById("order").insertRow(rowlength-1);
-    order.id=rowlength-1;
-    //插入列
-    var cel1=order.insertCell(0).innerHTML="file1";
-
-    var cel4=order.insertCell(1).innerHTML="<input type=\"button\"value=\"Delete\" onclick=\"delRow('"+(rowlength-1)+"')\"/>"+ "<input type=\"checkbox\"\"/>"
-}
+// function addRow(){
+//     //行的长度
+//     var rowlength=document.getElementById("order").rows.length;
+//     //得到整个表格对象
+//     var order = document.getElementById("order").insertRow(rowlength-1);
+//     order.id=rowlength-1;
+//     //插入列
+//     var cel1=order.insertCell(0).innerHTML="file1";
+//
+//     var cel4=order.insertCell(1).innerHTML="<input type=\"button\"value=\"Delete\" onclick=\"delRow('"+(rowlength-1)+"')\"/>"+ "<input type=\"checkbox\"\"/>"
+// }
 
 function delRow(qwe){
     var ewq=document.getElementById(qwe).rowIndex;
@@ -19,19 +19,6 @@ function delRow(qwe){
 function signin() {
     if ($('#username').val() != '' && $('#password').val() != '') {
 
-//         // if ($("#rememberme").is(":checked")) {
-//             //存储一个带7天期限的cookie
-//
-//         //     $.cookie("username", $("#username").val(), { path: "/", expires: 7 });
-//         //     $.cookie("password", $("#password").val(), { path: "/", expires: 7 });
-//         //
-//         // }
-//         $('#login_url').submit();
-
-        // else {
-        //     $.cookie("username", "", { path: "/", expires: -1 });
-        //     $.cookie("password", "", { path: "/", expires: -1 });
-        // }
 
         $.ajax(
             {
@@ -47,10 +34,7 @@ function signin() {
                         alert("登录成功！");
                         // $('#productModal').modal("hide");
                         window.location.reload();
-                        // $.cookie("username", datajson.username, { expires: 7 });
-                        // $.cookie("password", datajson.password, { expires: 7 });
 
-                        // $('#loginpos').html("<label>" + datajson.username + "</label>");
 
                     }
                     else if(datajson.msg == "0") {  // root
@@ -73,6 +57,84 @@ function signin() {
     } else
         alert("账号密码不可为空！");
 }
+function signout() {
+        $.ajax(
+            {
+                // contentType: "application/json",
+                type: "GET",
+                datatype: "json",
+                url: "/logout?state=1",
+               // data: JSON.stringify({"username": $('#username').val(), "password": $('#password').val()}),
+                success: function (result) {
+                    // console.log(result);
+                    var datajson = eval("(" + result + ")");
+                    if (datajson.msg == "OK") { // user
+                        alert("退出成功！");
+                        // $('#productModal').modal("hide");
+                        window.location.reload();
+                    }
+                    else alert("失败！");
+                },
+                error:function (result) {
+                    alert("!!!");
+
+                }
+
+
+            })
+}
+$("#logout").click(function () {
+    signout();
+})
+$("#adout").click(function(){
+
+    $.ajax(
+        {
+            // contentType: "application/json",
+            type: "GET",
+            datatype: "json",
+            url: "/logout?state=1",
+            // data: JSON.stringify({"username": $('#username').val(), "password": $('#password').val()}),
+            success: function (result) {
+                // console.log(result);
+                var datajson = eval("(" + result + ")");
+                if (datajson.msg == "OK") { // user
+                    alert("退出成功！");
+                    // $('#productModal').modal("hide");
+                    window.location.replace('http://localhost:8080/');
+                }
+                else alert("失败！");
+            },
+            error:function (result) {
+                alert("!!!");
+
+            }
+
+
+        })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function signup() {
     window.location.replace('http://localhost:8080/register');
@@ -107,31 +169,32 @@ function Post()
     }
 }
 
-$("#conform").click(function () {
-    var formData = new FormData();
-    formData.append("file",$("#fileupload")[0].files[0]);
-    formData.append("service",'App.Passion.UploadFile');
-    // formData.append("token",token);
-    $.ajax({
-        url:'/uploadfile', /*接口域名地址*/
-        type:'post',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success:function(res){
-            // console.log(res);
-            var json = eval("("+res+")");
-            if(json.msg=="success"){
-                alert('成功');
-                addRow();
-            }else if(json.msg=="error"){
-                alert('失败');
-            }else{
-                // console.log(res);
-            }
-        }
-    })
-})
+// $("#conform").click(function () {
+//     var formData = new FormData();
+//     formData.append("file",$("#fileupload")[0].files[0]);
+//     formData.append("service",'App.Passion.UploadFile');
+//     // formData.append("token",token);
+//     $.ajax({
+//         url:'/uploadfile', /*接口域名地址*/
+//         type:'post',
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         success:function(res){
+//             // console.log(res);
+//             var json = eval("("+res+")");
+//             if(json.msg=="success"){
+//                 alert('成功');
+//                 addRow();
+//
+//             }else if(json.msg=="error"){
+//                 alert('失败');
+//             }else{
+//                 // console.log(res);
+//             }
+//         }
+//     })
+// })
 
 
 

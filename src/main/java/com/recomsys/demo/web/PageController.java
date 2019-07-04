@@ -15,7 +15,7 @@ public class PageController {
      * RequestMapping作用 ： 提供路由信息，负责URL到Controller中的具体函数的映射
      */
 
-    @RequestMapping("/bb")
+    @RequestMapping("/test")
     public String bb() {
         return "test";
     }

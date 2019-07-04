@@ -18,7 +18,7 @@ import java.util.UUID;
 public class fileService {
 //    public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
 
-                public static String path = "C:/Users/sky/IdeaProjects/RecomSysTosit/module_input/";
+                public static String path = "C:\\Users\\sky\\Desktop\\RecomSysTosit\\module_input";
 
                 public static List<String> getFillList(){
                     ArrayList<String> filename_set = new ArrayList<>();

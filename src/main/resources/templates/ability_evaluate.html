@@ -47,6 +47,7 @@
 
 <!--    TODO-->
     <link rel="stylesheet" href="testhover.css">
+    <link rel="stylesheet" href="css/userstyle.css">
 
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -82,27 +83,38 @@
                                             </li>
 
 <!--                                    <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                    <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
+                                            <li><a href="/ability-evaluate" ><font color="#14b1bb">Ability Evaluate</font></a></li>
                                     <li><a href="/contact" target="_blank">Contact</a></li>
                                     <li th:if="${session.username eq 'root'}"><a href="/administer" target="_blank">Administer</a></li>
                                 </ul>
                             </nav>
 
-                            <div class="login-btn pt-36" th:if="${chooseuser ne 'null'}">
-                                <div class="testhover">
-                                    <label class="col-md-4" th:text="${chooseuser}"></label>
-                                    <ul>
-                                        <li>asdf</li>
-                                        <li>foo</li>
-                                    </ul>
-                                </div>
 
-                            </div>
+                                    <div class="login-btn pt-36" th:if="${chooseuser ne 'null'}">
+                                        <ul class="hList">
 
-                            <div class="login-btn pt-36" id="loginpos" th:if="${chooseuser eq 'null'}">
-                                <a class="modal-view button" href="#" data-toggle="modal"
-                                   data-target="#productModal">Login</a>
-                            </div>
+                                            <li>
+                                                <a class="menu">
+                                                    <h2 class="menu-title menu-title_2nd" th:text="${chooseuser}">Hello</h2>
+                                                    <ul class="menu-dropdown">
+                                                        <li onclick="window.open('/resume','_self')">Edit Resume</li><!--    用a标签和链接将默认展开        -->
+                                                        <li id="logout">Log Out</li>
+                                                    </ul>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+
+
+                                    </div>
+
+                                    <div class="login-btn pt-36" id="loginpos" th:if="${chooseuser eq 'null'}">
+                                        <a class="modal-view button" href="#" data-toggle="modal"
+                                           data-target="#productModal">Login</a>
+
+                                    </div>
+
+
 
                         </div>
                     </div>
@@ -122,7 +134,7 @@
                                         </li>
 
 <!--                                        <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                        <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
+                                        <li><a href="/ability-evaluate"><font color="#14b1bb">Ability Evaluate</font></a></li>
                                         <li><a href="/contact" target="_blank">Contact</a></li>
                                         <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
                                     </ul>
