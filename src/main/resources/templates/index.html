@@ -159,7 +159,8 @@
                                     </p>
                                     <div class="banner-readmore wow bounceInUp mt-35" data-wow-duration="3s"
                                          data-wow-delay="2s">
-                                        <a class="button slider-btn" href="/register">Find a job</a>
+                                        <a class="button slider-btn" href="/job-board" th:if="${chooseuser ne 'null'}">Find a job</a>
+                                        <a class="button slider-btn" href="/register" th:if="${chooseuser eq 'null'}">Find a job</a>
                                     </div>
                                 </div>
                             </div>

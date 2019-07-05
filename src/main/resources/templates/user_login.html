@@ -29,6 +29,8 @@
                 <button class="btn btn btn-primary pull-right" type="button" onclick="remeber()" >登 录</button>
             </form>
 
+            <button id="testspark">BUTTON</button>
+
             <a class="forgotLnk" href="index.html"></a>
             <div class="row-block">
                 <div class="row"></div>
@@ -50,9 +52,9 @@
             }
         });
         function remeber(){
-            // var yhm = $("#yhm").val();
-            // var mm = $("#mm").val();
-            $("#login_url").submit();
+            var yhm = $("#yhm").val();
+            var mm = $("#mm").val();
+            // $("#login_url").submit();
             //判断复选框的选择状态添加cookie
             // if ($("#remeberyhm").is(":checked")) {
             //     //存储一个带7天期限的cookie
@@ -64,25 +66,51 @@
             // }
 
             // 提交表单
-            // $.ajax({
-            //     contentType:'application/json;charset=utf-8',
-            //     url : '/login',
-            //     type : 'post',
-            //     data : JSON.stringify({　　　　　　　　　　　
-            //         username:yhm,　　　　　　
-            //         password:mm　　　
-            //     }),
-            //     dataType : 'json',
-            //     success: function(data){
-            //         // console.log(data);
-            //
-            //         $.cookie()
-            //
-            //         // $(location).attr('href', '/uploadurl');
-            //     }
-            // });
+            $.ajax({
+                contentType:'application/json;charset=utf-8',
+                url : '/login',
+                type : 'post',
+                data : JSON.stringify({　　　　　　　　　　　
+                    username:yhm,　　　　　　
+                    password:mm
+                }),
+                dataType : 'json',
+                success: function(data){
+                    console.log(data);
+                    window.location.reload();
+                    // $.cookie()
+
+                    // $(location).attr('href', '/uploadurl');
+                }
+            });
 
         }
+
+
+        $('#testspark').click(function () {
+
+            var skills = ['java','mysql','spring'];
+
+            $.ajax({
+               contentType:'application/json;charset=utf-8',
+               url : '/findjob',
+               type : 'post',
+               data : JSON.stringify({
+                   state:"2",
+                   wantjob:"",
+                   skillset:skills
+               }),
+               dataType : 'json',
+               success: function(data){
+                   console.log(data);
+                   // window.location.reload();
+                   // $.cookie()
+
+                   // $(location).attr('href', '/uploadurl');
+               }
+           })
+        });
+        
         //登录按钮与键盘回车绑定
         function IsEnterKeyPress(){
             var lKeyCode = (navigator.appname=="Netscape")?event.which:window.event.keyCode;

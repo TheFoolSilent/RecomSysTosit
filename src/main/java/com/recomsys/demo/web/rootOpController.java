@@ -15,9 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
+/**
+ * Root Operation Function
+ * in Administer Page
+ * */
+
 @Controller
 public class rootOpController {
 
+
+    /**
+     * Upload File Function
+     * input file
+     * return json
+     * json format{
+     *     msg:"",
+     *     description:"",
+     *     name_list:[],
+     *     current:""
+     * }
+     * */
     @RequestMapping("/uploadfile")
     @ResponseBody
     public String uploadFile(@RequestParam(value = "file") MultipartFile file,
@@ -59,7 +77,18 @@ public class rootOpController {
         return msg.toJSONString();
     }
 
-
+    /**
+     * Operate File Function
+     * 1. delete File
+     * input json
+     * return json
+     * json format{
+     *     msg:"",
+     *     description:""
+     *     name_list:[],
+     *     current:""
+     * }
+     * */
     @RequestMapping("/operatefile")
     @ResponseBody
     public String adminFile(@RequestBody FileOp fileOp,
@@ -88,7 +117,7 @@ public class rootOpController {
                 List<String> list_name = fileService.getFillList();
 
                 msg.put("name_list", list_name);
-
+                msg.put("current", fileService.dataname);
             } else {
                 msg.put("msg", "error");
                 msg.put("description", "unknow error");
@@ -106,6 +135,15 @@ public class rootOpController {
     }
 
 
+    /**
+     * Training Model Function
+     * input: json
+     * return json
+     * json format{
+     *     msg:"",
+     *     description:""
+     * }
+     * */
     @RequestMapping("/train")
     @ResponseBody
     public String trainmodle(@RequestBody FileOp fileOp, HttpServletRequest httpServletRequest) {
@@ -158,7 +196,17 @@ public class rootOpController {
         return msg.toJSONString();
     }
 
-
+    /**
+     * Administer Page Initial
+     * return file list
+     * input: null
+     * return: json
+     * json format{
+     *     msg:"",
+     *     description:""
+     *     name_list:[]
+     * }
+     * */
     @RequestMapping("/adinitial")
     @ResponseBody
     public String uploadFile(HttpServletRequest httpServletRequest) {

@@ -10,8 +10,19 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class webUserController {
+public class WebAccountController {
 
+    /**
+     * Login AJAX URL
+     * check username and password
+     * build session
+     * input: json
+     * return json
+     * json format {
+     *      msg:"",
+     *      description:""
+     * }
+     * */
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -63,7 +74,17 @@ public class webUserController {
     }
 
 
-    // check register
+    /**
+     * Register AJAX URL
+     * check register
+     * input: json
+     * return json
+     * json format {
+     *     msg:"",
+     *     description:""
+     * }
+     */
+
     @PostMapping("/registerraise")
     @ResponseBody
     public String userRegister(@RequestBody User user, HttpServletRequest request) {
@@ -105,16 +126,25 @@ public class webUserController {
     }
 
 
-    // log out
+    /**
+     * Log Out AJAX URL
+     * log out funtion
+     * input: state
+     * return json
+     * json format {
+     *     msg:""
+     * }
+     */
+
     @RequestMapping(value = "/logout")
     @ResponseBody
     public String userLogout(@RequestParam("state") String order, HttpServletRequest request) {
 
         JSONObject result = new JSONObject();
 
-        if(order.equals("1")){
+        if (order.equals("1")) {
             HttpSession session = request.getSession();
-            if(session != null){
+            if (session != null) {
                 session.invalidate();
             }
             result.put("msg", "OK");
@@ -122,4 +152,5 @@ public class webUserController {
         }
         return result.toJSONString();
     }
+
 }

@@ -24,6 +24,8 @@ function reder() {
             }
         }
         console.log(data);
+        showLoading();
+
         $.ajax(
             {
                 contentType: "application/json",
@@ -64,6 +66,7 @@ function reder() {
                         }
                         console.log(Frame);
                         $("#joblist").html(Frame);
+                        hideLoading();
                     }
                 },
                 error: function (result) {

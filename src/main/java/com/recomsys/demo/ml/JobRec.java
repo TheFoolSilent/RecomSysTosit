@@ -6,6 +6,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.ml.Model;
 import scala.Tuple2;
+import scala.Tuple3;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,11 +16,12 @@ import java.util.Map;
 
 public class JobRec {
 
-    static SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("JobRec");
-    static JavaSparkContext sc = new JavaSparkContext(conf);
-//    static String model_addr = "/home/ds/IdeaProjects/DecisionTreeTest/src/main/resources/jobRecModel.dat";
+    //    static SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("JobRec");
+//    public static JavaSparkContext sc = new JavaSparkContext(conf);
+    public static JavaSparkContext sc = sparkConf.sc;
+
     static String model_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_save/jobRecModel.dat";
-    private String data_addr = "/home/ds/JobProgram/together_result.txt";        //address of training data
+    private String data_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/together_result.txt";        //address of training data
 
     //private JavaPairRDD<String, List<String>> model;          //==null  ;    should write to hard memory
 
@@ -80,7 +82,7 @@ public class JobRec {
 
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
 
-            model = (JavaPairRDD<String, List<String>>) in.readObject();
+            //model = (JavaPairRDD<String, List<String>>)in.readObject();
 
             model = listToRDD((List<List<String>>) in.readObject());
 
@@ -89,7 +91,6 @@ public class JobRec {
             e.printStackTrace();
         } catch (Exception e) {             //EOF, ClassNotFound
             model = train();
-
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file, false));  //
             out.writeObject(rddToList(model));
         }
@@ -97,16 +98,16 @@ public class JobRec {
         //if(model == null)
 
 
-        JavaPairRDD<String, Tuple2<Integer, Integer>> counts = model.mapToPair(x -> {
+        JavaPairRDD<String, Tuple3<Integer, Integer, Integer>> counts = model.mapToPair(x -> {
             List<String> list = new ArrayList<>(x._2);
             int len = list.size();
             list.retainAll(skillList);
             int len2 = list.size();
-            return new Tuple2<>(x._1, new Tuple2<>(len2, len));   //len2:skills matched num;  len: all num
+            return new Tuple2<>(x._1, new Tuple3<>(len2, len, 1));   //len2:skills matched num;  len: all num
         });
 
-        JavaPairRDD<String, Tuple2<Integer, Integer>> countsByJob = counts.reduceByKey((x, y) -> new Tuple2<>(x._1 + y._1, x._2 + y._2));
-        JavaPairRDD<Double, String> weightAndJob = countsByJob.mapToPair(x -> new Tuple2<>(x._2._1 / (double) x._2._2, x._1));
+        JavaPairRDD<String, Tuple3<Integer, Integer, Integer>> countsByJob = counts.reduceByKey((x, y) -> new Tuple3<>(x._1() + y._1(), x._2() + y._2(), x._3() + y._3()));
+        JavaPairRDD<Double, String> weightAndJob = countsByJob.mapToPair(x -> new Tuple2<>(Math.sqrt(x._2._3()) * x._2._1() / (double) x._2._2(), x._1));              //core
         return weightAndJob.sortByKey(false).map(x -> x._2).take(3);     //recommend 3
 
     }
@@ -126,12 +127,13 @@ public class JobRec {
         }).collect();
     }
 
+
 //    public static void main(String[] args) throws IOException {
 //        JobRec jobrec = new JobRec();
-//        List<String> res = jobrec.jobRecs(new String[]{"java", "matlab", "spring"});
+//        List<String> res = jobrec.jobRecs(new String[]{"python", "mysql", "r"});
 //        System.out.println(res);
 //
-//        jobrec.chgTrainingData("/home/ds/JobProgram/AI_result.txt");
+//        //jobrec.chgTrainingData("/home/ds/JobProgram/AI_result.txt");
 //        //System.out.println(jobrec.jobRecs(new String[]{"java", "matlab", "spring"}));
 //
 //    }

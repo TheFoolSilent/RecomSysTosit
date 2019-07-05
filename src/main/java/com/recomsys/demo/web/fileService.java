@@ -33,6 +33,11 @@ public class fileService {
 
     }
 
+    /**
+     * save training data
+     * check data validation
+     * */
+
     public static boolean saveFile(MultipartFile file){
         if (file.isEmpty()) {
             System.out.println("文件为空");
@@ -59,6 +64,11 @@ public class fileService {
         }
     }
 
+
+    /**
+     * delete training data
+     * check url validation
+     * */
     public static boolean deleteFile(String filename) {
         File file = new File(path + filename);
         if (file.exists() && file.isFile()) {
@@ -92,10 +102,10 @@ public class fileService {
 
     }
 
+
     /**
-     *change training data
+     * change training data
      * check url validation
-     *
      * */
     public static boolean chooseFile(String filename) {
         File file = new File(path + filename);
@@ -107,11 +117,6 @@ public class fileService {
                 JobRec jobrec = new JobRec();
                 SkillRec skillrec = new SkillRec();
 
-//                if (jobrec.getAddr() == null || skillrec.getAddr() == null) {
-//                    msg.put("msg", "error");
-//                    msg.put("description", "training file not found");
-//                    return msg.toJSONString();
-//                }
                 jobrec.setData_addr(path + filename);
                 skillrec.setData_addr(path + filename);
                 dataname = filename;

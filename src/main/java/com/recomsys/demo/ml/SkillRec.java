@@ -16,12 +16,14 @@ import static java.lang.System.exit;
 
 public class SkillRec {
 
-    static SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("SkillRec");
-    static JavaSparkContext sc = new JavaSparkContext(conf);
+//    static SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("SkillRec");
+//    public static JavaSparkContext sc = new JavaSparkContext(conf);
 
-    private String data_addr = "/home/ds/JobProgram/together_result.txt";            //
-//    static String model_path = "/home/ds/IdeaProjects/DecisionTreeTest/src/main/resources/skillRecModels";
+    public static JavaSparkContext sc = sparkConf.sc;
+
+    private String data_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/together_result.txt";            //
     static String model_path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_save/skillRecModels";
+
     public String getData_addr() {
         return data_addr;
     }
@@ -67,7 +69,19 @@ public class SkillRec {
         int numPartitions = 1;
         double minSupport = 0.01;
 
-        JavaRDD<List<String>> pre_transactions = sc.textFile(data_addr).map(x -> Arrays.asList(x.split(" "))).map(x -> new HashSet<>(x)).map(x -> new ArrayList<>(x));
+        JavaRDD<String> tmp = sc.textFile(data_addr).filter(x -> x.split(" ").length > 1);
+        JavaRDD<List<String>> pre_transactions = tmp.map(x -> {
+            String[] items = x.split(" ");
+            List<String> res = new ArrayList<>();
+            res.add(items[0]);
+            for (int i = 1; i < items.length; i++) {
+                if (!res.contains(items[i]))
+                    res.add(items[i]);
+            }
+            return res;
+        });
+
+        //JavaRDD<List<String>> pre_transactions = sc.textFile(data_addr).map(x -> Arrays.asList(x.split(" ")).subList()).map(x ->new HashSet<>(x)).map(x -> new ArrayList<>(x));
         JavaRDD<List<String>> mid_transactions = pre_transactions;
         if (job != null && job.length() != 0)         //has job prefer
             mid_transactions = pre_transactions.filter(x -> x.size() > 1 && x.get(0).contains(job));
@@ -89,33 +103,36 @@ public class SkillRec {
 
     public List<String> skillRec(String job, final String[] skills) throws IOException {      //job==null or empty means no job prefer
 
-        if (job == null)
-            job = "";
+        String job1 = job;              //path name for storing model
+        String job2 = job;              //job name
 
-        //String path = model_path+"/"+job;
+        if (job == null || job.length() == 0) {
+            job1 = "allJobs";
+            job2 = "";
+        }
 
         FPGrowthModel model;            //<String>
         File filePath = new File(model_path);
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
-        File file = new File(filePath, job);
+        File file = new File(filePath, job1);
         if (!file.exists()) {
             file.mkdirs();
             //exit(5);
         }
         File[] listFiles = file.listFiles();
         if (listFiles.length <= 0) {                //no file
-            model = train(job);
+            model = train(job2);
             if (model.freqItemsets().isEmpty()) {           //threshold for FP too high
                 return new ArrayList<String>();                    //no job suitable, return empty
             }
             //System.out.println(model.freqItemsets().toJavaRDD().collect());
 
-            model.save(sc.sc(), model_path + "/" + job);
+            model.save(sc.sc(), model_path + "/" + job1);
         } else {
             System.out.println(listFiles.length);
-            model = FPGrowthModel.load(sc.sc(), model_path + "/" + job);
+            model = FPGrowthModel.load(sc.sc(), model_path + "/" + job1);
         }
 
 
@@ -129,7 +146,7 @@ public class SkillRec {
             list.removeAll(skillList);
             int len2 = list.size();
 
-            double weight = (len - len2 + 1) * Math.sqrt(x.freq()) - len;           //core
+            double weight = (len - len2 + 0.1) * Math.sqrt(x.freq()) - len / 2;           //core
 
             return new Tuple2<>(weight, list);
         }).sortByKey(false);
@@ -145,17 +162,17 @@ public class SkillRec {
         System.out.println(res2.collect());
         //System.out.println(res2.take(3));     //recommend 3 skills
 
-        return res2.take(3);       //don't like them? reRecommend?
+        return res2.take(5);       //don't like them? reRecommend?
     }
 
 //    public static void main(String[] args) throws IOException {
 //        SkillRec jobrec = new SkillRec();
-//        List<String> res = jobrec.skillRec("AI算法工程师",new String[]{"java", "matlab", "spring"});
+//        List<String> res = jobrec.skillRec(null,new String[]{"python", "mysql", "r"});
 //        System.out.println(res);
 //
-//        jobrec.chgTrainingData("/home/ds/JobProgram/AI_result.txt");
-//        System.out.println(jobrec.skillRec("AI算法工程师",new String[]{"java", "matlab", "spring"}));
-//        System.out.println(jobrec.skillRec("AI软件工程师",new String[]{"java", "matlab", "spring"}));
+////        jobrec.chgTrainingData("/home/ds/JobProgram/AI_result.txt");
+////        System.out.println(jobrec.skillRec("AI算法工程师",new String[]{"java", "matlab", "spring"}));
+////        System.out.println(jobrec.skillRec("AI软件工程师",new String[]{"java", "matlab", "spring"}));
 //      }
 }
 

@@ -1,5 +1,7 @@
 package com.recomsys.demo.web;
 
+import com.alibaba.fastjson.JSONObject;
+import com.recomsys.demo.web.Entity.Question;
 import com.recomsys.demo.web.Entity.User;
 
 import java.io.BufferedReader;
@@ -10,17 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAVA User Account Util
- * **/
+ * User Account Util
+ * 1. find all user
+ * 2. add user
+ * 3. check username and password
+ * 4. save users' feedback
+ **/
 
 public class userService {
 
     private static String path = "data/user.txt";
+    private static String feed_path = "data/feedback.txt";
 
     /**
      * read file：FileReader
      */
-    public static List<User> findAllUser(){
+    public static List<User> findAllUser() {
         List<User> arrayList = new ArrayList<>();
         try {
             FileReader fr = new FileReader(path);
@@ -61,7 +68,7 @@ public class userService {
         }
     }
 
-    public static User login(User user){
+    public static User login(User user) {
         int flag = 0;
         try {
             FileReader fr = new FileReader(path);
@@ -73,8 +80,8 @@ public class userService {
                 String username = str.split(" ")[0].trim();
                 String password = str.split(" ")[1].trim();
 
-                if(user.getUsername().equals(username)){
-                    if(user.getPassword().equals(password)) {
+                if (user.getUsername().equals(username)) {
+                    if (user.getPassword().equals(password)) {
                         flag = 1;
                     }
                     break;
@@ -87,10 +94,32 @@ public class userService {
             e.printStackTrace();
         }
 
-        if(flag == 1){
+        if (flag == 1) {
             return user;
         }
         return null;
+    }
+
+    /**
+     * Write file to save users' feedback
+     * */
+
+    public static boolean saveFeedback(Question question, String user) {
+        try {
+            // 打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
+            FileWriter writer = new FileWriter(feed_path, true);
+            JSONObject json = new JSONObject();
+
+            json.put("username", user);
+            json.put("subject", question.getSubject());
+            json.put("message", question.getMessage());
+
+            writer.write(json.toJSONString()+ "\n");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
 }

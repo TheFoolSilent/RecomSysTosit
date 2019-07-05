@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Each Page Mapping
+ */
 
 @Controller
 public class PageController {
 
-    /*
-     * RequestMapping作用 ： 提供路由信息，负责URL到Controller中的具体函数的映射
-     */
-
-
+    /**
+     * Index Page
+     * */
     @RequestMapping("/")
     public String homepage(Model m, HttpServletRequest httpServletRequest) {
 
@@ -32,6 +33,9 @@ public class PageController {
     }
 
 
+    /**
+     * Contact Page
+     * */
     @RequestMapping("/contact")
     public String contactpage(Model m, HttpServletRequest httpServletRequest) {
         String label;
@@ -46,7 +50,9 @@ public class PageController {
         return "contact";
     }
 
-
+    /**
+     * Resume Page
+     * */
     @RequestMapping("/resume")
     public String resumepage(Model m, HttpServletRequest httpServletRequest){
 
@@ -61,7 +67,9 @@ public class PageController {
         }
     }
 
-
+    /**
+     * Job Board Page
+     * */
     @RequestMapping("/job-board")
     public String job_boradpage(Model m, HttpServletRequest httpServletRequest) {
         String label;
@@ -76,7 +84,9 @@ public class PageController {
         return "job-board";
     }
 
-
+    /**
+     * Find Ability Page
+     * */
     @RequestMapping("/ability-evaluate")
     public String ablitypage(Model m, HttpServletRequest httpServletRequest) {
         String label;
@@ -92,6 +102,9 @@ public class PageController {
     }
 
 
+    /**
+     * Register Page
+     * */
     @RequestMapping("/register")
     public String UIRegister(HttpServletRequest request) {
         if (request.getSession().getAttribute("username") != null) {
@@ -102,6 +115,9 @@ public class PageController {
     }
 
 
+    /**
+     * Administer Page
+     * */
     @RequestMapping("/administer")
     public String adminpage(HttpServletRequest request, Model m) {
 
@@ -133,9 +149,9 @@ public class PageController {
         return "gg";
     }
 
-    @RequestMapping("/ww")
+    @RequestMapping("/test2")
     public String w() {
-        return "ww";
+        return "modalTest";
     }
 
 

@@ -165,30 +165,14 @@ function Post()
     }
 }
 
-// $("#conform").click(function () {
-//     var formData = new FormData();
-//     formData.append("file",$("#fileupload")[0].files[0]);
-//     formData.append("service",'App.Passion.UploadFile');
-//     // formData.append("token",token);
-//     $.ajax({
-//         url:'/uploadfile', /*接口域名地址*/
-//         type:'post',
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success:function(res){
-//             // console.log(res);
-//             var json = eval("("+res+")");
-//             if(json.msg=="success"){
-//                 alert('成功');
-//                 addRow();
-//
-//             }else if(json.msg=="error"){
-//                 alert('失败');
-//             }else{
-//                 // console.log(res);
-//             }
-//         }
-//     })
-// })
+
+showLoading = function (loadText) {
+    if (!loadText) {
+        $("#loadText").html(loadText)
+    }
+    $('#loadingModal').modal({backdrop: 'static', keyboard: false});
+}
+hideLoading = function () {
+    $('#loadingModal').modal('hide');
+}
 
