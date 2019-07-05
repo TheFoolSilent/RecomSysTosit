@@ -10,16 +10,24 @@
 //     var cel4=order.insertCell(1).innerHTML="<input type=\"button\"value=\"Delete\" onclick=\"delRow('"+(rowlength-1)+"')\"/>"+ "<input type=\"checkbox\"\"/>"
 // }
 
-function delRow(qwe){
-    var ewq=document.getElementById(qwe).rowIndex;
-    document.getElementById("order").deleteRow(ewq);
-}
+// function delRow(qwe){
+//     var ewq=document.getElementById(qwe).rowIndex;
+//     document.getElementById("order").deleteRow(ewq);
+// }
 
 
 function signin() {
     if ($('#username').val() != '' && $('#password').val() != '') {
 
-
+        if ($("#rememberme").is(":checked")) {
+            //存储一个带7天期限的cookie
+            $.cookie("username", $('#username').val(), {expires: 7});
+            $.cookie("password", $('#password').val(), {expires: 7});
+            // }else {
+            //     $.cookie("yhm", "", { expires: -1 });
+            //     $.cookie("mm", "", { expires: -1 });
+            // }
+        }
         $.ajax(
             {
                 contentType: "application/json",

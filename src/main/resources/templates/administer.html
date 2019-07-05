@@ -238,9 +238,9 @@
 
                         </table>
 
-                        <div class="ml-160 mt-38">
-                            <button type="button" class="btn btn-default">Execute</button>
-                        </div>
+<!--                        <div class="ml-160 mt-38">-->
+<!--                            <button type="button" class="btn btn-default">Execute</button>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -453,7 +453,7 @@
 <script type="text/javascript">
     function postData() {
         var formData = new FormData();
-        formData.append("file", $("#photo")[0].files[0]);
+        formData.append("file", $("#fileupload")[0].files[0]);
         formData.append("service", 'App.Passion.UploadFile');
         // formData.append("token",token);
         $.ajax({
@@ -479,99 +479,79 @@
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
 
-<script>
-    window.onload=function () {
-        $.ajax({
-            url:'/uploadfile', /*接口域名地址*/
-            type:'get',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success:function(res){
-                // console.log(res);
-                var data = eval("("+res+")");
-                if(data.msg=="success"){
-
-
-                    var listietm="";
-                    for(item in  data)
-                    {
-                        listitem+="<tr><td>" +listitem.name_lsit[item]+"</td><td>" +
-                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow()'>"+
-                                "<input type='checkbox' id='choice"+item+"'>"+
-                            "</td></tr>";
-                    }
-                    $("#filelist").html(listiem);
-                }else if(json.msg=="error"){
-                    alert('失败');
-                }else{
-                    // console.log(res);
-                }
-            }
-        })
-    }
-</script>
-
-<script>
-    $(#conform).click=function()
-    {
-        $.ajax({
-            url:'/uploadfile', /*接口域名地址*/
-            type:'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success:function(res){
-                // console.log(res);
-                var json = eval("("+res+")");
-                if(json.msg=="success"){
-
-                    //行的长度
-                    var rowlength = document.getElementById("order").rows.length;
-                    //得到整个表格对象
-                    var order = document.getElementById("order").insertRow(rowlength - 1);
-                    order.id = rowlength - 1;
-                    //插入列
-                    var cel1 = order.insertCell(0).innerHTML = $("#fileupload")[0].files[0].name;
-
-                    var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +
-                        "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"
-                }else if(json.msg=="error"){
-                    alert('失败');
-                }else{
-                    // console.log(res);
-                }
-            }
-        })
-    }
-</script>
-
-<script>
+<script>//点击confirm进行文件添加并显示全部文件
     $(function() {
-        console.log("YES");
+        // console.log("KKPPP")
+        $('#conform').click(function () {
+            var formData = new FormData();
+            formData.append("file", $("#fileupload")[0].files[0]);
+            formData.append("service", 'App.Passion.UploadFile');
+            $.ajax({
+                url: '/uploadfile', /*接口域名地址*/
+                type: 'post',
+                datatype: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    console.log(res);
+
+                    // console.log(res);
+                    var data = eval("("+res+")");
+                    // console.log(data, )
+                    if(data['msg']=="success"){
+                        var namelist = data['name_list']
+                        var listitem="";
+                        for(item in  namelist)
+                        {
+                            listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
+                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
+                                "<input type='button'value='execute' onclick='Execute(item)'>"+
+                                "</td></tr>";
+                        }
+                        $("#filelist").html(listitem);
+                    }else if(json.msg=="error"){
+                        alert('失败');
+                    }else{
+                        // console.log(res);
+                    }
+                }
+            })
+        })
+    })
+</script>
+
+
+
+
+
+
+
+<script>//进入页面加载出全部的文件
+    $(function() {
+        // console.log("YES");
         $.ajax({
             url:'/adinitial', /*接口域名地址*/
             type:'get',
-            // data: formData,
-            contentType: false,
-            processData: false,
-            success:function(res){
+            datatype:'json',
+            success: function (res) {
+                console.log(res);
 
-                console.log("OK");
-                var json = eval("("+res+")");
-                if(json.msg=="success"){
-
-                    //行的长度
-                    var rowlength = document.getElementById("order").rows.length;
-                    //得到整个表格对象
-                    var order = document.getElementById("order").insertRow(rowlength - 1);
-                    order.id = rowlength - 1;
-                    //插入列
-                    var cel1 = order.insertCell(0).innerHTML = $("#fileupload")[0].files[0].name;
-
-                    var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +
-                        "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"
-                }else if(json.msg=="error"){
+                // console.log(res);
+                var data = eval("("+res+")");
+                // console.log(data, )
+                if(data['msg']=="success"){
+                    var namelist = data['name_list']
+                    var listitem="";
+                    for(item in  namelist)
+                    {
+                        listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
+                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
+                            "<input type='button'value='execute' onclick='Execute(item)'>"+
+                            "</td></tr>";
+                    }
+                    $("#filelist").html(listitem);
+                }else if(data['msg']=="error"){
                     alert('失败');
                 }else{
                     // console.log(res);
@@ -583,60 +563,74 @@
 
 </script>
 
+<script>//删除文件并显示出剩余的文件
+
+    function delRow(ojbl) {//删除文件在列示表格中所在行
+
+// console.log($("#"+ojbl).text(), ojbl)
+        $.ajax({
+            url:'/operatefile', /*接口域名地址*/
+            type:'post',
+            datatype:'json',
+            data: JSON.stringify({'state':"2", 'filename':$("#"+ojbl).text()}),
+            contentType: 'application/json',
+            success: function (res) {
+                console.log(res);
+
+                // console.log(res);
+                var data = eval("("+res+")");
+                // console.log(data, )
+                if(data['msg']=="success"){
+                    var namelist = data['name_list']
+                    var listitem="";
+                    for(item in  namelist)
+                    {
+                        listitem+="<tr><td id='fname'"+item+">" +namelist[item]+"</td><td>" +
+                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
+                            "<input type='button'value='execute' onclick='Execute(item)'>"+
+                            "</td></tr>";
+                    }
+                    $("#filelist").html(listitem);
+                    // window.location.reload();
+                }else if(data['msg']=="error"){
+                    alert('失败');
+                }else{
+                    // console.log(res);
+                }
+            }
+        })
+
+    }
+
+</script>
+<script>
+    function Execute(ojbl) {
+        $.ajax({
+            url:'/train', /*接口域名地址*/
+            type:'post',
+            datatype:'json',
+            data: JSON.stringify({'filename':$("#"+ojbl).text()}),
+            contentType: 'application/json',
+            success: function (res) {
+                console.log(res);
+                var message = eval("("+res+")");
+                if(message.msg="success")
+                    alert("Execute Success!");
+
+            },
+            error:function()
+            {
+                alert("Error!");
+            }
+        })
+
+
+    }
+</script>
 
 
 
 
-
-<!--<script type="text/javascript">-->
-
-<!--    $("#conform").click(function () {-->
-<!--        var formData = new FormData();-->
-<!--        formData.append("file",$("#fileupload")[0].files[0]);-->
-<!--        formData.append("service",'App.Passion.UploadFile');-->
-<!--        // formData.append("token",token);-->
-<!--        $.ajax({-->
-<!--            url:'/uploadfile', /*接口域名地址*/-->
-<!--            type:'post',-->
-<!--            data: formData,-->
-<!--            contentType: false,-->
-<!--            processData: false,-->
-<!--            success:function(res){-->
-<!--                // console.log(res);-->
-<!--                var json = eval("("+res+")");-->
-<!--                if(json.msg=="success"){-->
-
-<!--                    //行的长度-->
-<!--                    var rowlength = document.getElementById("order").rows.length;-->
-<!--                    //得到整个表格对象-->
-<!--                    var order = document.getElementById("order").insertRow(rowlength - 1);-->
-<!--                    order.id = rowlength - 1;-->
-<!--                    //插入列-->
-<!--                    var cel1 = order.insertCell(0).innerHTML = $("#fileupload")[0].files[0].name;-->
-
-<!--                    var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +-->
-<!--                        "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"-->
-
-
-
-<!--                    // addRow();-->
-
-<!--                }else if(json.msg=="error"){-->
-<!--                    alert('失败');-->
-<!--                }else{-->
-<!--                    // console.log(res);-->
-<!--                }-->
-<!--            }-->
-<!--        })-->
-<!--    })-->
-
-
-
-<!--    function delRow(qwe) {-->
-<!--        var ewq = document.getElementById(qwe).rowIndex;-->
-<!--        document.getElementById("order").deleteRow(ewq);-->
-<!--    }-->
-<!--</script>-->
 
 <script type="text/javascript" src="js/func.js"></script>
 </body>
