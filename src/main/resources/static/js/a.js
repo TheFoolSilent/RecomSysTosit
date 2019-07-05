@@ -18,7 +18,10 @@ function reder() {
             console.log(arr[item])
             console.log(arr[item]['val'])
             for (item_one in arr[item]['val']){
-                data.push(arr[item]['val'][item_one]);
+
+                var temp = arr[item]['val'][item_one].toLowerCase();
+
+                data.push(temp);
             }
         }
         console.log(data);
@@ -30,12 +33,12 @@ function reder() {
                 url: "/findjob",
                 data: JSON.stringify({"state": "1","wantjob": "", skillset:data}),
                 success: function (result) {
-                    // console.log(result);
+                    console.log(result);
                     var data = eval("("+result+")");
                     if (data.msg== "success")
                     {
                         alert("注册成功！");
-                        window.location.replace("/");
+                        // window.location.replace("/");
                     }
                 },
                 error: function (result) {

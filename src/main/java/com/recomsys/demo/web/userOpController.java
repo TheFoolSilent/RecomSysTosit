@@ -37,8 +37,18 @@ public class userOpController {
 
                 try{
                     JobRec jobrec = new JobRec();
+                    System.out.println(skill.getSkillset().toString());
+
+                    for (String s : master_skill) {
+                        System.out.println(s);
+                    }
+
+                    jobrec.chgTrainingData();
+
                     List<String> res = jobrec.jobRecs(master_skill);
-//                    System.out.println(res);
+
+                    System.out.println(res);
+
                     msg.put("msg", "success");
                     msg.put("job_list", res);
 
@@ -58,10 +68,16 @@ public class userOpController {
 
                     // TODO Spark API
 
-                    SkillRec jobrec = new SkillRec();
+                    SkillRec skillrec = new SkillRec();
                     try {
-                        List<String> res = jobrec.skillRec(skill.getWantjob(), master_skill);
-//                        System.out.println(res);
+//                        List<String> res = skillrec.skillRec(skill.getWantjob(), master_skill);
+                        System.out.println(skill.getSkillset().toString());
+
+                        for (String s : master_skill) {
+                            System.out.println(s);
+                        }
+                        List<String> res = skillrec.skillRec(master_skill);
+                        System.out.println(res);
                         msg.put("msg", "success");
                         msg.put("job_list", res);
 

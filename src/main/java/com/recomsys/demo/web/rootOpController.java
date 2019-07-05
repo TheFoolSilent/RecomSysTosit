@@ -88,21 +88,21 @@ public class rootOpController {
 
                 msg.put("name_list", list_name);
 
-            }else{
+            } else {
                 msg.put("msg", "error");
                 msg.put("description", "unknow error");
 
             }
-        return msg.toJSONString();
+            return msg.toJSONString();
 
-    } else {
-        msg.put("msg", "error");
-        msg.put("description", "Login Overdue");
-        // return error json
+        } else {
+            msg.put("msg", "error");
+            msg.put("description", "Login Overdue");
+            // return error json
+        }
+
+        return msg.toJSONString();
     }
-
-        return msg.toJSONString();
-}
 
 
     @RequestMapping("/train")
@@ -119,21 +119,21 @@ public class rootOpController {
 
             // Spark API
 
-            if(fileService.chooseFile(fileOp.getFilename())){
+            if (fileService.chooseFile(fileOp.getFilename())) {
                 JobRec jobrec = new JobRec();
                 SkillRec skillrec = new SkillRec();
 
-                if(jobrec.chgTrainingData() && skillrec.chgTrainingData()){
+                if (jobrec.chgTrainingData() && skillrec.chgTrainingData()) {
                     msg.put("msg", "success");
                     msg.put("description", "model generation success");
 
-                }else{
+                } else {
                     msg.put("msg", "error");
                     msg.put("description", "Train Error");
 
                 }
 
-            }else{
+            } else {
                 msg.put("msg", "error");
                 msg.put("description", "Training File Error");
             }
@@ -144,6 +144,30 @@ public class rootOpController {
             // return error json
         }
 
+        return msg.toJSONString();
+    }
+
+
+    @RequestMapping("/adinitail")
+    @ResponseBody
+    public String uploadFile(HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+
+        JSONObject msg = new JSONObject();
+        if (session.getAttribute("username") == null) {
+            msg.put("msg", "error");
+            msg.put("description", "unknown error");
+
+        } else if (session.getAttribute("username").toString().equals("root")) {  // root login
+            msg.put("msg", "success");
+            msg.put("description", "delete Success");
+            List<String> list_name = fileService.getFillList();
+
+            msg.put("name_list", list_name);
+        }else{
+            msg.put("msg", "error");
+            msg.put("description", "Login Overdue");
+        }
         return msg.toJSONString();
     }
 }
