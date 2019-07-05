@@ -139,9 +139,9 @@ public class PageController {
     }
 
 
-    @RequestMapping("/bb")
+    @RequestMapping("/test")
     public String bb() {
-        return "test";
+        return "user_login";
     }
 
 }
