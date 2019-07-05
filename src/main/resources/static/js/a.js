@@ -24,18 +24,46 @@ function reder() {
         console.log(data);
         $.ajax(
             {
-                contentType:"application/json",
-                type: "POST",
+                // contentType:"application/json",
+                type: "GET",
                 datatype: "json",
-                url: "/findjob",
-                data: JSON.stringify({"state": "1","wantjob": "", skillset:data}),
+                url: "js/tt.json",
+                // data: JSON.stringify({"state": "1","wantjob": "", skillset:data}),
                 success: function (result) {
-                    // console.log(result);
-                    var data = eval("("+result+")");
-                    if (data.msg== "success")
+                    console.log(typeof(result.job_list));
+
+                    if(result.msg=="success")
                     {
-                        alert("注册成功！");
-                        window.location.replace("/");
+                        console.log("OK");
+                        var Frame="";
+
+
+                        for(i  in result.job_list){
+
+
+                            Frame+= "<div class='single-job-post fix'>"+
+                                "<div class='job-title col-4 pl-30'>"+
+                                "<span class='pull-left block mtb-17'>"+
+                                "<a href=''#'><img src='images/company-logo/1.png'></a>"+
+                                "</span>"+
+                                "<div class='fix pl-30 mt-29'>"+
+                                " <h4 class='mb-5'>"+result.job_list[i]+"</h4>"+
+                                "<h5><a href='#'>Devitems</a></h5>"+
+                                "</div>"+
+                                "</div>"+
+                                "<div class='address col-4 pl-50'>"+
+                                " <span class='mtb-30 block'>2020 Willshire Glen,<br>"+
+                                "Alpharetta, GA-30009</span>"+
+                                "</div>"+
+                                "<div class='time-payment col-2 pl-60 text-center pt-22'>"+
+                                "<span class='block mb-6'>€ 200.00</span>"+
+                                "<a href='#' class='button button-red'>Full Time</a>"+
+                                "</div>"+
+                                "</div>";
+
+                        }
+ console.log(Frame);
+                        $("#joblist").html(Frame);
                     }
                 },
                 error: function (result) {
@@ -47,3 +75,4 @@ function reder() {
 
     $("#searchcon").SEarch(option);
 }
+

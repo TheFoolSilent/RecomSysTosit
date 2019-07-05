@@ -229,15 +229,13 @@
                             </div>
                         </form>
 
-                        <table border="0" cellspacing="0" cellpadding="0" id="order">
-                            <tr class="title">
+                        <table border="0" cellspacing="0" cellpadding="0" id="filelist">
+                            <tr class="title" width="20px">
                                 <td width="70%">filename</td>
                                 <td width="30%">operation</td>
                             </tr>
-                            <tr>
-<!--                                <td colspan="4" style="height:30px;">-->
-<!--                                    <input name="addOrder" type="button" value="add" onclick="addRow()"/></td>-->
-                            </tr>
+
+
                         </table>
 
                         <div class="ml-160 mt-38">
@@ -479,13 +477,44 @@
 </script>
 
 <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript">
 
-    $("#conform").click(function () {
-        var formData = new FormData();
-        formData.append("file",$("#fileupload")[0].files[0]);
-        formData.append("service",'App.Passion.UploadFile');
-        // formData.append("token",token);
+
+<script>
+    window.onload=function () {
+        $.ajax({
+            url:'/uploadfile', /*接口域名地址*/
+            type:'get',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+                // console.log(res);
+                var data = eval("("+res+")");
+                if(data.msg=="success"){
+
+
+                    var listietm="";
+                    for(item in  data)
+                    {
+                        listitem+="<tr><td>" +listitem.name_lsit[item]+"</td><td>" +
+                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow()'>"+
+                                "<input type='checkbox' id='choice"+item+"'>"+
+                            "</td></tr>";
+                    }
+                    $("#filelist").html(listiem);
+                }else if(json.msg=="error"){
+                    alert('失败');
+                }else{
+                    // console.log(res);
+                }
+            }
+        })
+    }
+</script>
+
+<script>
+    $(#conform).click=function()
+    {
         $.ajax({
             url:'/uploadfile', /*接口域名地址*/
             type:'post',
@@ -507,11 +536,6 @@
 
                     var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +
                         "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"
-
-
-
-                    // addRow();
-
                 }else if(json.msg=="error"){
                     alert('失败');
                 }else{
@@ -519,25 +543,100 @@
                 }
             }
         })
-    })
-
-    // function addRow() {
-    //     //行的长度
-    //     var rowlength = document.getElementById("order").rows.length;
-    //     //得到整个表格对象
-    //     var order = document.getElementById("order").insertRow(rowlength - 1);
-    //     order.id = rowlength - 1;
-    //     //插入列
-    //     var cel1 = order.insertCell(0).innerHTML = "file1";
-    //
-    //     var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\"value=\"delete\" onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\"\"/>"
-    // }
-
-    function delRow(qwe) {
-        var ewq = document.getElementById(qwe).rowIndex;
-        document.getElementById("order").deleteRow(ewq);
     }
 </script>
+
+<script>
+    $(function() {
+        console.log("YES");
+        $.ajax({
+            url:'/adinitial', /*接口域名地址*/
+            type:'get',
+            // data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res){
+
+                console.log("OK");
+                var json = eval("("+res+")");
+                if(json.msg=="success"){
+
+                    //行的长度
+                    var rowlength = document.getElementById("order").rows.length;
+                    //得到整个表格对象
+                    var order = document.getElementById("order").insertRow(rowlength - 1);
+                    order.id = rowlength - 1;
+                    //插入列
+                    var cel1 = order.insertCell(0).innerHTML = $("#fileupload")[0].files[0].name;
+
+                    var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +
+                        "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"
+                }else if(json.msg=="error"){
+                    alert('失败');
+                }else{
+                    // console.log(res);
+                }
+            }
+        })
+    })//DOM加载完毕后执行函数且只执行一次
+
+
+</script>
+
+
+
+
+
+
+<!--<script type="text/javascript">-->
+
+<!--    $("#conform").click(function () {-->
+<!--        var formData = new FormData();-->
+<!--        formData.append("file",$("#fileupload")[0].files[0]);-->
+<!--        formData.append("service",'App.Passion.UploadFile');-->
+<!--        // formData.append("token",token);-->
+<!--        $.ajax({-->
+<!--            url:'/uploadfile', /*接口域名地址*/-->
+<!--            type:'post',-->
+<!--            data: formData,-->
+<!--            contentType: false,-->
+<!--            processData: false,-->
+<!--            success:function(res){-->
+<!--                // console.log(res);-->
+<!--                var json = eval("("+res+")");-->
+<!--                if(json.msg=="success"){-->
+
+<!--                    //行的长度-->
+<!--                    var rowlength = document.getElementById("order").rows.length;-->
+<!--                    //得到整个表格对象-->
+<!--                    var order = document.getElementById("order").insertRow(rowlength - 1);-->
+<!--                    order.id = rowlength - 1;-->
+<!--                    //插入列-->
+<!--                    var cel1 = order.insertCell(0).innerHTML = $("#fileupload")[0].files[0].name;-->
+
+<!--                    var cel4 = order.insertCell(1).innerHTML = "<input type=\"button\" value=\"delete\" " +-->
+<!--                        "onclick=\"delRow('" + (rowlength - 1) + "')\"/>" + "<input type=\"checkbox\" id=\"choosed\" />"-->
+
+
+
+<!--                    // addRow();-->
+
+<!--                }else if(json.msg=="error"){-->
+<!--                    alert('失败');-->
+<!--                }else{-->
+<!--                    // console.log(res);-->
+<!--                }-->
+<!--            }-->
+<!--        })-->
+<!--    })-->
+
+
+
+<!--    function delRow(qwe) {-->
+<!--        var ewq = document.getElementById(qwe).rowIndex;-->
+<!--        document.getElementById("order").deleteRow(ewq);-->
+<!--    }-->
+<!--</script>-->
 
 <script type="text/javascript" src="js/func.js"></script>
 </body>

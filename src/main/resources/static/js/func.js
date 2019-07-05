@@ -124,18 +124,6 @@ $("#adout").click(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function signup() {
     window.location.replace('http://localhost:8080/register');
 }
@@ -196,12 +184,3 @@ function Post()
 //     })
 // })
 
-
-
-// function f() {
-//     for(i){
-//         var str = `<li>?      </li>`.format(i)
-//     }
-//
-//     $("#filelist").html5();
-// }
