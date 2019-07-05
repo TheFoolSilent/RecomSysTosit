@@ -24,19 +24,20 @@ function reder() {
         console.log(data);
         $.ajax(
             {
-                // contentType:"application/json",
-                type: "GET",
+                contentType:"application/json",
+                type: "POST",
                 datatype: "json",
-                url: "js/tt.json",
-                // data: JSON.stringify({"state": "2","wantjob": $(#dreamjob).val, skillset:data}),
+                url: "/findjob",
+                data: JSON.stringify({"state": "2","wantjob": $('#dreamjob').val(), "skillset":data}),
                 success: function (result) {
-                    console.log(typeof(result.job_list));
+                    console.log(typeof(result));
+                    var datajson = eval("(" + result + ")");
 
-                    if(result.msg=="success")
+                    if(datajson['msg']=="success")
                     {
                         console.log("OK");
                         var Frame="";
-                        for(i  in result.job_list){
+                        for(i  in datajson['job_list']){
 
 
                             Frame+= "<div class='single-job-post fix'>"+
@@ -45,7 +46,7 @@ function reder() {
                                 "<a href=''#'><img src='images/company-logo/1.png'></a>"+
                                 "</span>"+
                                 "<div class='fix pl-30 mt-29'>"+
-                                " <h4 class='mb-5'>"+result.job_list[i]+"</h4>"+
+                                " <h4 class='mb-5'>"+datajson['job_list'][i]+"</h4>"+
                                 "<h5><a href='#'>Devitems</a></h5>"+
                                 "</div>"+
                                 "</div>"+

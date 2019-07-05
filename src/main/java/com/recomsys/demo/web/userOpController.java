@@ -47,6 +47,7 @@ public class userOpController {
 
                     List<String> res = jobrec.jobRecs(master_skill);
 
+//                    JobRec.sc.close();
                     System.out.println(res);
 
                     msg.put("msg", "success");
@@ -70,14 +71,18 @@ public class userOpController {
 
                     SkillRec skillrec = new SkillRec();
                     try {
-//                        List<String> res = skillrec.skillRec(skill.getWantjob(), master_skill);
+
                         System.out.println(skill.getSkillset().toString());
 
                         for (String s : master_skill) {
                             System.out.println(s);
                         }
-                        List<String> res = skillrec.skillRec(master_skill);
+                        List<String> res = skillrec.skillRec(skill.getWantjob(), master_skill);
+//                        List<String> res = skillrec.skillRec(master_skill);
                         System.out.println(res);
+
+//                        SkillRec.sc.close();
+
                         msg.put("msg", "success");
                         msg.put("job_list", res);
 
@@ -96,5 +101,11 @@ public class userOpController {
             }
 
         }
+//    @PostMapping("/feedback")
+//    @ResponseBody
+//    public String userRegister(@RequestBody Skill skill, HttpServletRequest httpServletRequest) {
+//
+//    }
+
 
 }

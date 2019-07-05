@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class fileService {
     public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
+    public static String dataname = "";
 
     public static List<String> getFillList() {
         ArrayList<String> filename_set = new ArrayList<>();
@@ -67,14 +68,14 @@ public class fileService {
 
                 file.delete();
 
-                if ((path + filename).equals(jobr.getData_addr())) {
+                if (filename.equals(dataname)) {
                     List<String> list_file = getFillList();
                     if(list_file.size() > 0){
                         if(chooseFile(list_file.get(0))){
                             return true;
                         }
                     }
-
+                    dataname = null;
                     jobr.setData_addr(null);
                     return false;
 
@@ -113,6 +114,8 @@ public class fileService {
 //                }
                 jobrec.setData_addr(path + filename);
                 skillrec.setData_addr(path + filename);
+                dataname = filename;
+
 
             } catch (Exception e) {
                 e.printStackTrace();

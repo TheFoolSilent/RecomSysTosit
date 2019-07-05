@@ -45,6 +45,7 @@ public class rootOpController {
             List<String> list_name = fileService.getFillList();
 
             msg.put("name_list", list_name);
+            msg.put("current", fileService.dataname);
 
             return msg.toJSONString();
 
@@ -120,10 +121,20 @@ public class rootOpController {
             // Spark API
 
             if (fileService.chooseFile(fileOp.getFilename())) {
+
                 JobRec jobrec = new JobRec();
+
+                boolean job1 = jobrec.chgTrainingData();
+
+//                JobRec.sc.close();
+
                 SkillRec skillrec = new SkillRec();
 
-                if (jobrec.chgTrainingData() && skillrec.chgTrainingData()) {
+                boolean skill1 = skillrec.chgTrainingData();
+
+//                SkillRec.sc.close();
+
+                if (job1 && skill1) {
                     msg.put("msg", "success");
                     msg.put("description", "model generation success");
 
@@ -148,7 +159,7 @@ public class rootOpController {
     }
 
 
-    @RequestMapping("/adinitail")
+    @RequestMapping("/adinitial")
     @ResponseBody
     public String uploadFile(HttpServletRequest httpServletRequest) {
         HttpSession session = httpServletRequest.getSession();
