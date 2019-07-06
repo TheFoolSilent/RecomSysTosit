@@ -48,6 +48,24 @@
     <link rel="stylesheet" href="css/userstyle.css">
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        .login-btn>a:hover{
+            color:#FFFFFF;
+        }
+        .main-menu>li,login-btn>a
+        {
+            font-size: 14px;
+
+        }
+        .menu>h2{
+            padding-top: 12px;
+        }
+        .btn-group>button
+        {
+            background-color: #14b1bb;
+        }
+
+    </style>
 
 </head>
 <body onkeydown="keyLogin();" background="http://www.jq22.com/js/a5.html" >
@@ -73,13 +91,13 @@
                                 <ul class="main-menu text-right">
                                     <li><a href="/"><font color="#14b1bb">Home</font></a>
                                     </li>
-                                    <li><a href="/job-board" target="_blank">Job Board</a>
+                                    <li><a href="/job-board" >Job Board</a>
                                     </li>
 
-<!--                                    <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                    <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
-                                    <li><a href="/contact" target="_blank">Contact</a></li>
-                                    <li th:if="${session.username eq 'root'}"><a href="/administer" target="_blank">Administer</a></li>
+<!--                                    <li><a href="/resume" >Resume</a></li>-->
+                                    <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
+                                    <li><a href="/contact" >Contact</a></li>
+                                    <li th:if="${session.username eq 'root'}"><a href="/administer" >Administer</a></li>
                                 </ul>
                             </nav>
 
@@ -122,13 +140,13 @@
                                     <ul class="main-menu text-right">
                                         <li><a href="/"><font color="#14b1bb">Home</font></a>
                                         </li>
-                                        <li><a href="/job-board" target="_blank">Job Board</a>
+                                        <li><a href="/job-board" >Job Board</a>
                                         </li>
 
-<!--                                        <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                        <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
-                                        <li><a href="/contact" target="_blank">Contact</a></li>
-                                        <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
+<!--                                        <li><a href="/resume" >Resume</a></li>-->
+                                        <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
+                                        <li><a href="/contact" >Contact</a></li>
+                                        <!--                                            <li><a href="/admin" >Administer</a></li>-->
                                     </ul>
                                 </nav>
                             </div>
@@ -252,7 +270,7 @@
                     <button type="button" id="shutup" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true"><i class="zmdi zmdi-close"></i></span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" onkeydown="KeyDown()">
                     <div class="form-pop-up-content ptb-60 pl-60 pr-60">
                         <!--								<div class="area-title text-center mb-43">-->
                         <!--									<h2 class="pt-7 pb-7 pl-40 pr-40">Login</h2>-->

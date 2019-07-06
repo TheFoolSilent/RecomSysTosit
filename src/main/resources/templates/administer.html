@@ -25,6 +25,26 @@
         }
 
 
+
+         .login-btn>a:hover{
+             color:#FFFFFF;
+         }
+        .main-menu>li,login-btn>a
+        {
+            font-size: 14px;
+
+        }
+        .menu>h2{
+            padding-top: 12px;
+        }
+        .btn-group>button
+        {
+            background-color: #14b1bb;
+        }
+
+
+
+
     </style>
 
 
@@ -100,13 +120,13 @@
                                 <ul class="main-menu text-right">
                                     <li><a href="/">Home</a>
                                     </li>
-                                    <li><a href="/job-board" target="_blank">Job Board</a>
+                                    <li><a href="/job-board" >Job Board</a>
                                     </li>
 
-                                    <!--                                    <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                    <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
-                                    <li><a href="/contact" target="_blank">Contact</a></li>
-                                    <li th:if="${session.username eq 'root'}"><a href="/admin" target="_blank">
+                                    <!--                                    <li><a href="/resume" >Resume</a></li>-->
+                                    <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
+                                    <li><a href="/contact" >Contact</a></li>
+                                    <li th:if="${session.username eq 'root'}"><a href="/admin" >
                                         <font color="#14b1bb">Administer</font></a>
                                     </li>
                                 </ul>
@@ -117,7 +137,7 @@
 
                                     <li>
                                         <a class="menu">
-                                            <h2 class="menu-title menu-title_2nd" th:text="${chooseuser}">Hello</h2>
+                                            <h2 class="menu-title menu-title_2nd" style="padding-top: 12px" th:text="${chooseuser}">Hello</h2>
                                             <ul class="menu-dropdown">
 <!--                                                <li onclick="window.open('/resume','_self')">Edit Resume</li>&lt;!&ndash;    用a标签和链接将默认展开        &ndash;&gt;-->
                                                 <li id="adout">Log Out</li>
@@ -155,13 +175,13 @@
                                     <ul class="main-menu text-right">
                                         <li><a href="/">Home</a>
                                         </li>
-                                        <li><a href="/job-board" target="_blank">Job Board</a>
+                                        <li><a href="/job-board" >Job Board</a>
                                         </li>
 
-                                        <!--                                                        <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                        <li><a href="/ability-evaluate" target="_blank">Ability Evaluate</a></li>
-                                        <li><a href="/contact" target="_blank">Contact</a></li>
-                                        <li th:if="${session.username eq 'root'}"><a href="/administer" target="_blank">Administer</a>
+                                        <!--                                                        <li><a href="/resume" >Resume</a></li>-->
+                                        <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
+                                        <li><a href="/contact" >Contact</a></li>
+                                        <li th:if="${session.username eq 'root'}"><a href="/administer" >Administer</a>
                                         </li>
                                     </ul>
                                 </nav>

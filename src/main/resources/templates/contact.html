@@ -55,6 +55,25 @@
     <!-- Color Css Files
     ============================================ -->
 
+    <style>
+        .login-btn>a:hover{
+            color:#FFFFFF;
+        }
+        .main-menu>li,login-btn>a
+        {
+            font-size: 14px;
+
+        }
+        .menu>h2{
+            padding-top: 12px;
+        }
+        .btn-group>button
+        {
+            background-color: #14b1bb;
+        }
+
+    </style>
+
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -82,7 +101,7 @@
                                             <li><a href="/job-board" >Job Board</a>
                                             </li>
 
-<!--                                    <li><a href="/resume" target="_blank">Resume</a></li>-->
+<!--                                    <li><a href="/resume" >Resume</a></li>-->
                                     <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
                                             <li><a href="/contact"><font color="#14b1bb">Contact</font></a></li>
                                     <li th:if="${session.username eq 'root'}"><a href="/administer">Administer</a></li>
@@ -133,10 +152,10 @@
                                         <li><a href="/job-board" >Job Board</a>
                                         </li>
 
-<!--                                        <li><a href="/resume" target="_blank">Resume</a></li>-->
+<!--                                        <li><a href="/resume" >Resume</a></li>-->
                                         <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
                                         <li><a href="/contact" ><font color="#14b1bb">Contact</font></a></li>
-                                        <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
+                                        <!--                                            <li><a href="/admin" >Administer</a></li>-->
                                     </ul>
                                 </nav>
                             </div>
@@ -148,7 +167,7 @@
         </header>
         <!-- End of Header Area -->
         <!--Breadcrumb Banner Area Start-->
-        <div class="breadcrumb-banner-area pt-94 pb-85 bg-3 bg-opacity-dark-blue-90">
+        <div class="breadcrumb-banner-area pt-150 bg-3 bg-opacity-black-60" style="height: 382px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -173,7 +192,8 @@
                 <!--  Map Section -->
                 <div id="contacts" class="map-area">
                     <div id="amap"
-                         style='width:100%;height:485px;background:url("https://www.amap.com/");filter: grayscale(100%);-webkit-filter: grayscale(100%);'></div>
+                         style='width:100%;height:300px;background:url("https://www.amap.com/");
+                         filter: grayscale(100%);-webkit-filter: grayscale(100%);'></div>
                 </div>
             </div>
             <!--End of Google Map-->
@@ -333,7 +353,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true"><i class="zmdi zmdi-close"></i></span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" onkeydown="KeyDown()">
                     <div class="form-pop-up-content ptb-60 pl-60 pr-60">
                         <!--								<div class="area-title text-center mb-43">-->
                         <!--									<h2 class="pt-7 pb-7 pl-40 pr-40">Login</h2>-->

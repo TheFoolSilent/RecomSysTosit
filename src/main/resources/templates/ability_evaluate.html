@@ -54,14 +54,23 @@
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <style>
-        .navlogin>a:hover{
+        .login-btn>a:hover{
             color:#FFFFFF;
         }
-        .main-menu>li,.navlogin
+        .main-menu>li,login-btn>a
         {
             font-size: 14px;
 
         }
+        .menu>h2{
+            padding-top:12px;
+        }
+        .btn-group>button
+        {
+            background-color: #14b1bb;
+        }
+
+
     </style>
 
     <!-- Color Css Files
@@ -91,14 +100,14 @@
                                 <ul class="main-menu text-right">
                                     <li><a href="/">Home</a>
                                     </li>
-                                    <li><a href="/job-board" target="_blank">Job Board</a>
+                                    <li><a href="/job-board"  >Job Board</a>
                                     </li>
 
-                                    <!--                                    <li><a href="/resume" target="_blank">Resume</a></li>-->
-                                    <li><a href="/ability-evaluate"><font color="#14b1bb">Ability Evaluate</font></a>
+                                    <!--                                    <li><a href="/resume"  >Resume</a></li>-->
+                                    <li><a href="/ability-evaluate"><font color="#14b1bb">ability evaluate</font></a>
                                     </li>
-                                    <li><a href="/contact" target="_blank">Contact</a></li>
-                                    <li th:if="${session.username eq 'root'}"><a href="/administer" target="_blank">Administer</a>
+                                    <li><a href="/contact"  >Contact</a></li>
+                                    <li th:if="${session.username eq 'root'}"><a href="/administer"  >Administer</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -109,7 +118,7 @@
 
                                     <li>
                                         <a class="menu">
-                                            <h2 class="menu-title menu-title_2nd" th:text="${chooseuser}">Hello</h2>
+                                            <h2 class="menu-title menu-title_2nd"  style=" font-size:14px" th:text="${chooseuser}">Hello</h2>
                                             <ul class="menu-dropdown">
                                                 <li style="color:#4E96B3" onclick="window.open('/resume','_self')"
                                                     th:if="${session.username ne 'root'}">Edit Resume
@@ -124,7 +133,7 @@
 
                             </div>
 
-                            <div class="login-btn pt-36  navlogin" id="loginpos" th:if="${chooseuser eq 'null'}">
+                            <div class="login-btn pt-36" id="loginpos" th:if="${chooseuser eq 'null'}">
                                 <a class="modal-view button" href="#" data-toggle="modal"
                                    data-target="#productModal">Login</a>
 
@@ -145,14 +154,14 @@
                                     <ul class="main-menu text-right">
                                         <li><a href="/">Home</a>
                                         </li>
-                                        <li><a href="/job-board" target="_blank">Job Board</a>
+                                        <li><a href="/job-board"  >Job Board</a>
                                         </li>
 
-                                        <!--                                        <li><a href="/resume" target="_blank">Resume</a></li>-->
+                                        <!--                                        <li><a href="/resume"  >Resume</a></li>-->
                                         <li><a href="/ability-evaluate"><font color="#14b1bb">Ability
                                             Evaluate</font></a></li>
-                                        <li><a href="/contact" target="_blank">Contact</a></li>
-                                        <!--                                            <li><a href="/admin" target="_blank">Administer</a></li>-->
+                                        <li><a href="/contact"  >Contact</a></li>
+                                        <!--                                            <li><a href="/admin"  >Administer</a></li>-->
                                     </ul>
                                 </nav>
                             </div>
@@ -178,8 +187,21 @@
                             </div>
                         </div>
 
-                        <div class="form-container  mt-40">
+
+
+                        <div class="form-container  mt-40 fix bg-opacity-blue-85:before">
+
+                            <div class="box-select">
+
+                                <input type="text" id="dreamjob"
+                                       placeholder="Input your dream job here"
+                                       style=" float:left;width:680px;background-color: #FFFFFF"/>
+                                <button type="button" id="jobconfirm" class="button-dark pull-right"
+                                        style="background-color:#14b1bb">Search</button>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -199,11 +221,14 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: center">
-            <strong style="font-size:15px;">Your Dream Job：</strong>
-            <input type="text" id="dreamjob" style="width:400px" placeholder="Input your dream job here">
-            <input type="button" id="jobconfirm" style="width:80px;" value="Confirm">
-        </div>
+
+
+
+<!--        <div style="text-align: center">-->
+<!--            <strong style="font-size:15px;">Your Dream Job：</strong>-->
+<!--&lt;!&ndash;            <input type="text" id="dreamjob" style="width:400px" placeholder="Input your dream job here">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="button" id="jobconfirm" style="width:80px;" value="Confirm">&ndash;&gt;-->
+<!--        </div>-->
 
 
         <!--Start of Candidates Area-->
@@ -212,7 +237,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title text-center ">
-                            <h2 class="uppercase">Ability Evaluate</h2>
+                            <h2 class="uppercase">You may need improve these skills</h2>
                             <div class="separator mt-35 mb-77">
                                 <span><img src="images/icons/1.png" alt=""></span>
                             </div>
@@ -227,9 +252,9 @@
 
 
                         </div>
-                        <div class="text-center">
-                            <a href="#" class="button large-button">Browse all candidates</a>
-                        </div>
+<!--                        <div class="text-center">-->
+<!--                            <a href="#" class="button large-button">Browse all candidates</a>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -338,7 +363,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true"><i class="zmdi zmdi-close"></i></span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" onkeydown="KeyDown()">
                     <div class="form-pop-up-content ptb-60 pl-60 pr-60">
                         <!--								<div class="area-title text-center mb-43">-->
                         <!--									<h2 class="pt-7 pb-7 pl-40 pr-40">Login</h2>-->
@@ -353,18 +378,14 @@
                                                                     type="checkbox">Remember Me</span>
                             <span class="pull-right"><a href="#">Forget Password?</a></span>
                         </div>
-
-
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group btn-group-justified"   role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default" onclick="signin()">SIGNIN</button>
+                                <button type="button" class="btn btn-defaul" onclick="signin()">SIGNIN</button>
                             </div>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default" onclick="signup()">SIGNUP</button>
+                                <button type="button" class="btn btn-default"  onclick="signup()">SIGNUP</button>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -375,7 +396,7 @@
 <div class="modal fade" id="loadingModal" backdrop="static" keyboard="false">
     　　
     <div class="modal-dialog" role="document">
-        <div class="loader">
+        <div class="loader"style="padding-top: 50%;padding-left: 50%">
             <div class="face">
                 <div class="circle"></div>
             </div>
@@ -415,7 +436,7 @@
 
 <!-- AJax Mail JS
 ========================================================= -->
-<script src="js/ajax-mail.js"></script>
+<!--<script src="js/ajax-mail.js"></script>-->
 
 <!-- Mail Chimp JS
 ========================================================= -->
@@ -436,5 +457,9 @@
 <script type="text/javascript" src="/js/data.js"></script>
 <script type="text/javascript" src="/js/abev.js"></script>
 <script type="text/javascript" src="/js/abevresult.js"></script>
+
+
+
+
 </body>
 </html>
