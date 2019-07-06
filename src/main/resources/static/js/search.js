@@ -144,10 +144,10 @@
             self.wrap = this.$vessel;
             var $navsr = $("<div class='crumbs-nav'></div>");
             var olstr = "<ol class='crumb'>"
-            olstr += "<li class='crumbcondiwrap'></li></ol><a class='allsubmit'>查询</a>"
+            olstr += "<li class='crumbcondiwrap'></li></ol>"
             $navsr.append(olstr);
             self.searcon.prepend($navsr);
-            $(".allsubmit").on("click", function() {
+            $(".passjob").on("click", function() {
                 var arr = self.searchcondi;
                 self.options.searfunc(arr);
             });
