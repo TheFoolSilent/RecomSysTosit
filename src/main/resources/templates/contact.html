@@ -180,10 +180,10 @@
             <!--Start of Contact Form And info-->
             <div class="contact-form-and-info">
                 <div class="contact-form white-bg fix pr-125 pl-125 pt-40 pb-35">
-                    <form id="contact-form" action="mail.php" method="post">
+<!--                    <form id="contact-form" action="mail.php" method="post">-->
                         <div class="col-10 pr-6 mb-15">
-                            <label for="name" class="block ml-20">Name</label>
-                            <input type="text" name="name" id="name" class="pl-20" placeholder="Please enter your name">
+                            <label  class="block ml-20">Subject</label>
+                            <input type="text"  id="subject" class="pl-20" placeholder="Please enter your subject">
                         </div>
 
                         <div class="col-10">
@@ -195,7 +195,7 @@
                             <button type="submit" id="submit" class="button submit-btn">SUBMIT</button>
                         </div>
                         <p class="form-messege"></p>
-                    </form>
+<!--                    </form>-->
                 </div>
                 <div class="contact-info text-center fix pt-120 pb-115">
                     <div class="single-contact-info">
@@ -402,23 +402,16 @@
                     contentType: "application/json",
                     type: "POST",
                     datatype: "json",
-                    url: "/findjob",
-                    data: JSON.stringify({"state": "1", "wantjob": "", "skillset": data}),
+                    url: "/feedback",
+                    data: JSON.stringify({ "subject": $("#subject").val(), "message": $("#message").val()}),
                     success: function (result) {
                         console.log(typeof (result));
                         var datajson = eval("(" + result + ")");
                         if (datajson['msg'] == "success") {
-                            console.log("OK");
-                            var Frame = "";
-
-
-                            for (i  in datajson['job_list']) {
-
-
-                            }
-                            console.log(Frame);
-                            $("#joblist").html(Frame);
+                            alert(datajson['description']);
                         }
+
+
                     },
                     error: function (result) {
                         var data = eval("(" + result + ")");
