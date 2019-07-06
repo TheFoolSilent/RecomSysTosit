@@ -152,7 +152,11 @@ function signup() {
 
 function Post()
 {
-    if($('#r_password').val() == $('#password').val()) {
+    if($("#name").val()==''||$('#r_password').val() ==!''|| $('#password').val()=='')
+    {
+        alert("Please complete your information!");
+    }
+    else    if($('#r_password').val() == $('#password').val()) {
         $.ajax(
             {
                 contentType:"application/json",

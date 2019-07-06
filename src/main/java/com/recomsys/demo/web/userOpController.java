@@ -1,8 +1,8 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.recomsys.demo.ml.JobRec;
-import com.recomsys.demo.ml.SkillRec;
+
+import com.recomsys.demo.ml.Rec;
 import com.recomsys.demo.web.Entity.Question;
 import com.recomsys.demo.web.Entity.Skill;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class userOpController {
@@ -47,19 +47,12 @@ public class userOpController {
             if (skill.getState().equals("1")) {  // recommend job
                 // Spark API Find Job
 
-                String[] master_skill = skill.getSkillset().
-                        toArray(new String[skill.getSkillset().size()]);
-
                 try {
 
-                    JobRec jobrec = new JobRec();
+                    Rec rec = new Rec();
                     System.out.println(skill.getSkillset().toString());
 
-                    for (String s : master_skill) {
-                        System.out.println(s);
-                    }
-
-                    List<String> res = jobrec.jobRecs(master_skill);
+                    List<String> res = rec.jobRec(skill.getSkillset());
 
                     System.out.println(res);
 
@@ -77,28 +70,42 @@ public class userOpController {
 
             } else if (skill.getState().equals("2")) {  // recommend skill
 
-                String[] master_skill = skill.getSkillset().
-                        toArray(new String[skill.getSkillset().size()]);
-
                 // Spark API
 
-                SkillRec skillrec = new SkillRec();
+                Rec rec = new Rec();
 
                 try {
 
+                    List<String> res = new ArrayList<>();
+
                     System.out.println(skill.getSkillset().toString());
 
-                    for (String s : master_skill) {
-                        System.out.println(s);
-                    }
-
-                    List<String> res;
-
                     if(skill.getWantjob().equals("")){
-                        res = skillrec.skillRec(master_skill);
-                    }else{
-                        res = skillrec.skillRec(skill.getWantjob(), master_skill);
+                        res = rec.skillRec(null, skill.getSkillset());
+                        System.out.println("NULLLLLLL");
+                    }else {
+
+                        List<String> joblist = fileService.readJobList();
+                        HashMap<Integer, String> hashMap = new HashMap<>();
+
+                        joblist.forEach((x) -> {
+                            hashMap.put(fileService.EditDistance(x, skill.getWantjob().trim()), x);
+                        });
+
+                        Set set = hashMap.keySet();
+                        Object[] arr = set.toArray();
+                        Arrays.sort(arr);
+
+                        int cnt = 0;
+                        for(Object key:arr){
+                            List<String> temp = rec.skillRec(hashMap.get(key), skill.getSkillset());
+
+                            res.addAll(temp);
+                            cnt++;
+                            if(cnt == 1)break;
+                        }
                     }
+
 
                     System.out.println(res);
 
