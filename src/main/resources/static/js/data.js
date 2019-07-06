@@ -4,73 +4,69 @@ var data = {
         "val": [{
                 "multiselect": true,
                 "value": {
-                    "title": "前沿技术微服务",
-                    "val": ["区块链", "以太坊", "人工智能", "机器学习", "深度学习", "计算机视觉", "自然语言处理", "数据分析&挖掘"]
+                    "title": "A-B",
+                    "val": ["ActiveMq", "ajax", "android", "angular", "apache", "API","Bootstrap", "JavaScript", "Vue.js", "React.JS", "Angular", "Node.js", "jQuery", "Bootstrap", "Sass/Less", "WebApp", "小程序", "前端工具", "CSS", "HTML5", "CSS3"]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "前端开发",
-                    "val": ["HTML/CSS", "JavaScript", "Vue.js", "React.JS", "Angular", "Node.js", "jQuery", "Bootstrap", "Sass/Less", "WebApp", "小程序", "前端工具", "CSS", "HTML5", "CSS3"]
+                    "title": "C-I",
+                    "val": [ "C", "C#", "C++", "CSS3","操作系统","DB2","Docker","Dubbo","多线程","Eclipse",
+                        "Elasticsearch","ERP","F", "分布式","Hadoop","Hbase","Hibernate","Hive",
+                        "Html5","Http","Https","Ibatis","iOS"]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "后端开发",
-                    "val": [ "Java", "Springboot", "Spring", "Cloud", "Python", "爬虫", "Django", "Tornado", "Go", "PHP", "C", "C++", "C#", "Ruby"]
+                    "title": "J-K",
+                    "val": ["J2ee","Java","JavaEE","JavaScript","JavaWeb","JBoss","JDBC","JQuery","Json","JSP","机器学习","架构","脚本语言","Kafka"]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "移动开发",
-                    "val": ["Android","iOS","React","native","WEEX"]
+                    "title": "L-M",
+                    "val": ["Linux","Maven","memcache","mongodb","mq","mvc","mybatis","mysql",]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "算法&数学",
-                    "val": ["算法和数据结构","数学","算法"]
+                    "title": "N-O",
+                    "val": ["nginx","node","nosql","oracle",]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "云计算和大数据",
-                    "val": ["大数据","Hadoop","Spark","Hbase","Storm","云计算","AWS","Docker","Kubernetes"]
+                    "title": "P-R",
+                    "val": ["php","postgresql","python","rabbitmq","react","redis","restful",]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "运维&测试",
-                    "val": ["运维","自动化运维","运维工具","中间件","Linux","测试","功能测试","性能测试","自动化测试","接口测试","安全测试"]
+                    "title": "S-T",
+                    "val": ["servlet","shell","socket","spark","spark","spring","springboot","springcloud","springcloud","springmvc","sql","sqlite",
+                        "sqlserver","ssh","struts","struts2","svn","swift", "数据挖掘","tcp/ip","thinkphp","tomcat","统计"]
+                }
+            },{
+                "multiselect": true,
+                "value": {
+                    "title": "U-V",
+                    "val": ["uml","unity","unity3d","unix","vue",]
                 }
             },
             {
                 "multiselect": true,
                 "value": {
-                    "title": "数据库",
-                    "val": ["MySQL","Redis","MongoDB","Oracle","SQL","Server","NoSql"]
+                    "title": "W-Z",
+                    "val": ["weblogic","websphere","windows","网络编程","文档","xcode","xml","小程序","zookeeper",]
                 }
             },
-            {
-                "multiselect": true,
-                "value": {
-                    "title": "UI设计&多媒体",
-                    "val": ["模型制作","特效动画","设计基础","设计工具","APPUI设计","产品交互"]
-                }
-            },
-            {
-                "multiselect": true,
-                "value": {
-                    "title": "游戏",
-                    "val": ["Unity 3D","Cocos2d-x"]
-                }
-            },
-         ]
+
+        ]
     }
 }

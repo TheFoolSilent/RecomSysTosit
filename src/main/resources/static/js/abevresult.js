@@ -32,7 +32,7 @@ function reder() {
                 type: "POST",
                 datatype: "json",
                 url: "/findjob",
-                data: JSON.stringify({"state": "2","wantjob": $('#dreamjob').val(), "skillset":data}),
+                data: JSON.stringify({"state": "2","wantjob": $('#dreamjob').val().toLowerCase(), "skillset":data}),
                 success: function (result) {
                     console.log(typeof(result));
                     var datajson = eval("(" + result + ")");
