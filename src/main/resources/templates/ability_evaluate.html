@@ -197,7 +197,11 @@
                                        placeholder="Input your dream job here"
                                        style=" float:left;width:680px;background-color: #FFFFFF"/>
                                 <button type="button" id="jobconfirm" class="button-dark pull-right"
+                                        style="background-color:#14b1bb" th:if="${chooseuser ne 'null'}">Search</button>
+
+                                <button type="button" disabled="disabled" th:if="${chooseuser eq 'null'}" class="button-dark pull-right"
                                         style="background-color:#14b1bb">Search</button>
+
                             </div>
 
                         </div>

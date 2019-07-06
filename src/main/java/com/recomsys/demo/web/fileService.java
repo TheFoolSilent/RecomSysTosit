@@ -1,12 +1,10 @@
 package com.recomsys.demo.web;
 
-import com.recomsys.demo.ml.JobRec;
-import com.recomsys.demo.ml.SkillRec;
+import com.recomsys.demo.web.Entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,8 +14,8 @@ import java.util.UUID;
  * **/
 
 public class fileService {
+    private static String choose_path = "data/choose.txt";
     public static String path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/";
-    public static String dataname = "";
 
     public static List<String> getFillList() {
         ArrayList<String> filename_set = new ArrayList<>();
@@ -74,7 +72,11 @@ public class fileService {
         if (file.exists() && file.isFile()) {
             try {
 
-                JobRec jobr = new JobRec();
+                String dataname = getChooseData();
+
+                if(dataname == null){
+                    return false;
+                }
 
                 file.delete();
 
@@ -85,8 +87,7 @@ public class fileService {
                             return true;
                         }
                     }
-                    dataname = null;
-                    jobr.setData_addr(null);
+
                     return false;
 
                 }
@@ -108,28 +109,36 @@ public class fileService {
      * check url validation
      * */
     public static boolean chooseFile(String filename) {
-        File file = new File(path + filename);
         // if spark_train_path is not null then do
+        try{
+            FileWriter writer = new FileWriter(choose_path);
 
-        if (file.exists() && file.isFile()) {
-            try {
-
-                JobRec jobrec = new JobRec();
-                SkillRec skillrec = new SkillRec();
-
-                jobrec.setData_addr(path + filename);
-                skillrec.setData_addr(path + filename);
-                dataname = filename;
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+            writer.write(filename);
+            writer.close();
             return true;
+
+        }catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
 
-        return false;
     }
+
+    public static String getChooseData(){
+        String str;
+        try {
+            FileReader fr = new FileReader(choose_path);
+            BufferedReader bf = new BufferedReader(fr);
+            str = bf.readLine();
+
+            bf.close();
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return str;
+    }
+
 
 }

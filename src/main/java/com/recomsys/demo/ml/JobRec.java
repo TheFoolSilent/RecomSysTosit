@@ -1,6 +1,5 @@
 package com.recomsys.demo.ml;
 
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -20,8 +19,8 @@ public class JobRec {
 //    public static JavaSparkContext sc = new JavaSparkContext(conf);
     public static JavaSparkContext sc = sparkConf.sc;
 
-    static String model_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_save/jobRecModel.dat";
-    private String data_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/together_result.txt";        //address of training data
+    static String model_addr = "module_save/jobRecModel.dat";
+    private String data_addr = "module_input/trainingdata2.txt";        //address of training data
 
     //private JavaPairRDD<String, List<String>> model;          //==null  ;    should write to hard memory
 

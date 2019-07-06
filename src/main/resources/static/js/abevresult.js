@@ -18,9 +18,12 @@ function reder() {
             console.log(arr[item])
             console.log(arr[item]['val'])
             for (item_one in arr[item]['val']){
-                data.push(arr[item]['val'][item_one]);
+
+                var temp = arr[item]['val'][item_one].toLowerCase();
+                data.push(temp);
             }
         }
+
         console.log(data);
         showLoading();
         $.ajax(

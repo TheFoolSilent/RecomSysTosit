@@ -53,19 +53,20 @@
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <style>
-        .login-btn>a:hover{
-            color:#FFFFFF;
+        .login-btn > a:hover {
+            color: #FFFFFF;
         }
-        .main-menu>li,login-btn>a
-        {
+
+        .main-menu > li, login-btn > a {
             font-size: 14px;
 
         }
-        .menu>h2{
+
+        .menu > h2 {
             padding-top: 12px;
         }
-        .btn-group>button
-        {
+
+        .btn-group > button {
             background-color: #14b1bb;
         }
 
@@ -99,9 +100,9 @@
                                     </li>
 
                                     <!--                                    <li><a href="/resume" >Resume</a></li>-->
-                                    <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
-                                    <li><a href="/contact" >Contact</a></li>
-                                    <li th:if="${session.username eq 'root'}"><a href="/administer" >Administer</a>
+                                    <li><a href="/ability-evaluate">Ability Evaluate</a></li>
+                                    <li><a href="/contact">Contact</a></li>
+                                    <li th:if="${session.username eq 'root'}"><a href="/administer">Administer</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -151,8 +152,8 @@
                                         </li>
 
                                         <!--                                        <li><a href="/resume" >Resume</a></li>-->
-                                        <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
-                                        <li><a href="/contact" >Contact</a></li>
+                                        <li><a href="/ability-evaluate">Ability Evaluate</a></li>
+                                        <li><a href="/contact">Contact</a></li>
                                         <!--                                            <li><a href="/admin" >Administer</a></li>-->
                                     </ul>
                                 </nav>
@@ -198,12 +199,16 @@
                 </div>
             </div>
         </div>
+        
         <div style="margin-left: auto;margin-right:auto;margin-top:0;width: 50%;text-align:center">
-        <input type="button" class="passjob"  style="margin-top:0;border:10px;border-color:black;
+            <input type="button" th:if="${chooseuser ne 'null'}" class="passjob" style="margin-top:0;border:10px;border-color:black;
         background-color:#14b1bb;width: 30%;color:white"
-               value="SEARCH"/>
+                   value="SEARCH"/>
+            <input type="button" disabled="disabled" th:if="${chooseuser eq 'null'}" class="passjob" style="margin-top:0;border:10px;border-color:black;
+            background-color:#14b1bb;width: 30%;color:white"
+                   value="SEARCH"/>
         </div>
-<!--        <a class='allsubmit'>查询</a>-->
+        <!--        <a class='allsubmit'>查询</a>-->
         <!--Breadcrumb Banner Area Start-->
 
 
@@ -402,7 +407,7 @@
 
 <div class="modal fade" id="loadingModal" backdrop="static" keyboard="false">
     　　
-    <div class="modal-dialog"  role="document">
+    <div class="modal-dialog" role="document">
         <div class="loader" style="padding-top: 50%;padding-left: 50%">
             <div class="face">
                 <div class="circle"></div>

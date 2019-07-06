@@ -126,7 +126,7 @@
                                     <!--                                    <li><a href="/resume" >Resume</a></li>-->
                                     <li><a href="/ability-evaluate" >Ability Evaluate</a></li>
                                     <li><a href="/contact" >Contact</a></li>
-                                    <li th:if="${session.username eq 'root'}"><a href="/admin" >
+                                    <li th:if="${session.username eq 'root'}"><a href="/administer" >
                                         <font color="#14b1bb">Administer</font></a>
                                     </li>
                                 </ul>
@@ -525,8 +525,8 @@
                         for(item in  namelist)
                         {
                             listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
-                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
-                                "<input type='button'value='execute' onclick='Execute(item)'>"+
+                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
+                                "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
                                 "</td></tr>";
                         }
                         $("#filelist").html(listitem);
@@ -566,8 +566,8 @@
                     for(item in  namelist)
                     {
                         listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
-                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
-                            "<input type='button'value='execute' onclick='Execute(item)'>"+
+                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item +")' '>"+
+                            "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
                             "</td></tr>";
                     }
                     $("#filelist").html(listitem);
@@ -605,9 +605,9 @@
                     var listitem="";
                     for(item in  namelist)
                     {
-                        listitem+="<tr><td id='fname'"+item+">" +namelist[item]+"</td><td>" +
-                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(item)' '>"+
-                            "<input type='button'value='execute' onclick='Execute(item)'>"+
+                        listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
+                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
+                            "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
                             "</td></tr>";
                     }
                     $("#filelist").html(listitem);

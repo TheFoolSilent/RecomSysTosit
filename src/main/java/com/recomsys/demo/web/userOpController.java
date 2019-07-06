@@ -51,14 +51,13 @@ public class userOpController {
                         toArray(new String[skill.getSkillset().size()]);
 
                 try {
+
                     JobRec jobrec = new JobRec();
                     System.out.println(skill.getSkillset().toString());
 
                     for (String s : master_skill) {
                         System.out.println(s);
                     }
-
-                    jobrec.chgTrainingData();
 
                     List<String> res = jobrec.jobRecs(master_skill);
 
@@ -84,6 +83,7 @@ public class userOpController {
                 // Spark API
 
                 SkillRec skillrec = new SkillRec();
+
                 try {
 
                     System.out.println(skill.getSkillset().toString());
@@ -91,11 +91,16 @@ public class userOpController {
                     for (String s : master_skill) {
                         System.out.println(s);
                     }
-                    List<String> res = skillrec.skillRec(skill.getWantjob(), master_skill);
-//                        List<String> res = skillrec.skillRec(master_skill);
-                    System.out.println(res);
 
-//                        SkillRec.sc.close();
+                    List<String> res;
+
+                    if(skill.getWantjob().equals("")){
+                        res = skillrec.skillRec(master_skill);
+                    }else{
+                        res = skillrec.skillRec(skill.getWantjob(), master_skill);
+                    }
+
+                    System.out.println(res);
 
                     msg.put("msg", "success");
                     msg.put("job_list", res);
@@ -133,7 +138,7 @@ public class userOpController {
         HttpSession session = httpServletRequest.getSession();
         JSONObject msg = new JSONObject();
 
-        if (session.getAttribute("username") == null) {
+        if (session.getAttribute("username") != null) {
             userService.saveFeedback(question, session.getAttribute("username").toString());
             msg.put("msg", "success");
             msg.put("description", "We have received your feedback, Thanks");

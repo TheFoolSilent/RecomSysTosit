@@ -63,7 +63,7 @@ public class rootOpController {
             List<String> list_name = fileService.getFillList();
 
             msg.put("name_list", list_name);
-            msg.put("current", fileService.dataname);
+            msg.put("current", fileService.getChooseData());
 
             return msg.toJSONString();
 
@@ -96,14 +96,17 @@ public class rootOpController {
 
         HttpSession session = httpServletRequest.getSession();
 
+//        System.out.println("11");
+
         JSONObject msg = new JSONObject();
         if (session.getAttribute("username") == null) {
+//            System.out.println("12");
             msg.put("msg", "error");
             msg.put("description", "unknown error");
 
         } else if (session.getAttribute("username").toString().equals("root")) {  // root login
 
-            if (fileOp.getState() == "2") {
+            if (fileOp.getState().equals("2")) {
                 // File delete
                 if (fileService.deleteFile(fileOp.getFilename())) {
                     msg.put("msg", "success");
@@ -117,8 +120,9 @@ public class rootOpController {
                 List<String> list_name = fileService.getFillList();
 
                 msg.put("name_list", list_name);
-                msg.put("current", fileService.dataname);
+                msg.put("current", fileService.getChooseData());
             } else {
+//                System.out.println("13");
                 msg.put("msg", "error");
                 msg.put("description", "unknow error");
 
@@ -156,21 +160,23 @@ public class rootOpController {
 
         } else if (session.getAttribute("username").toString().equals("root")) {  // root login
 
-            // Spark API
-
             if (fileService.chooseFile(fileOp.getFilename())) {
+
+                String choosedata = fileService.getChooseData();  // get chosen data name
+
+                // Spark API
 
                 JobRec jobrec = new JobRec();
 
-                boolean job1 = jobrec.chgTrainingData();
+                jobrec.setData_addr(fileService.path + choosedata);
 
-//                JobRec.sc.close();
+                boolean job1 = jobrec.chgTrainingData();
 
                 SkillRec skillrec = new SkillRec();
 
-                boolean skill1 = skillrec.chgTrainingData();
+                skillrec.setData_addr(fileService.path + choosedata);
 
-//                SkillRec.sc.close();
+                boolean skill1 = skillrec.chgTrainingData();
 
                 if (job1 && skill1) {
                     msg.put("msg", "success");

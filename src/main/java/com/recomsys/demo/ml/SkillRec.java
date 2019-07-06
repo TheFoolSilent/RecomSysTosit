@@ -1,6 +1,5 @@
 package com.recomsys.demo.ml;
 
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -21,8 +20,8 @@ public class SkillRec {
 
     public static JavaSparkContext sc = sparkConf.sc;
 
-    private String data_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_input/together_result.txt";            //
-    static String model_path = "/home/hadoop/IdeaProjects/RecomSysdemo/module_save/skillRecModels";
+    private String data_addr = "module_input/trainingdata2.txt";            //
+    static String model_path = "module_save/skillrecom";
 
     public String getData_addr() {
         return data_addr;
@@ -67,7 +66,7 @@ public class SkillRec {
     public FPGrowthModel<String> train(String job) {
 
         int numPartitions = 1;
-        double minSupport = 0.01;
+        double minSupport = 0.02;
 
         JavaRDD<String> tmp = sc.textFile(data_addr).filter(x -> x.split(" ").length > 1);
         JavaRDD<List<String>> pre_transactions = tmp.map(x -> {
@@ -138,7 +137,7 @@ public class SkillRec {
 
         final List<String> skillList = new ArrayList<>(Arrays.asList(skills));
         JavaRDD<FPGrowth.FreqItemset<String>> freqItemsets = model.freqItemsets().toJavaRDD();   //null
-        System.out.println(freqItemsets.collect());
+//        System.out.println(freqItemsets.collect());
 
         JavaPairRDD<Double, List<String>> sortedSets = freqItemsets.mapToPair(x -> {
             List<String> list = new ArrayList<>(x.javaItems());
@@ -151,7 +150,7 @@ public class SkillRec {
             return new Tuple2<>(weight, list);
         }).sortByKey(false);
 
-        System.out.println(sortedSets.collect());
+//        System.out.println(sortedSets.collect());
 
         List<String> res1 = sortedSets.map(x -> x._2).reduce((x, y) -> {
             List<String> list = new ArrayList<>(x);
@@ -159,7 +158,7 @@ public class SkillRec {
             return list;
         });
         JavaRDD<String> res2 = sc.parallelize(res1).distinct();
-        System.out.println(res2.collect());
+//        System.out.println(res2.collect());
         //System.out.println(res2.take(3));     //recommend 3 skills
 
         return res2.take(5);       //don't like them? reRecommend?
