@@ -65,6 +65,20 @@ function signin() {
     } else
         alert("账号密码不可为空！");
 }
+
+
+// <script>
+function KeyDown()
+{
+    if (event.keyCode == 13)
+    {
+        signin();
+    }
+}
+// </script>
+
+
+
 function signout() {
         $.ajax(
             {
