@@ -39,7 +39,7 @@ function signin() {
                     // console.log(result);
                     var datajson = eval("(" + result + ")");
                     if (datajson.msg == "1") { // user
-                        alert("登录成功！");
+                        // alert("登录成功！");
                         // $('#productModal').modal("hide");
                         window.location.reload();
 
