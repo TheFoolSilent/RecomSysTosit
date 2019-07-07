@@ -543,8 +543,13 @@
                         var listitem="";
                         for(item in  namelist)
                         {
-                            listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
-                                "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
+                            if(namelist[item]==data['current'])
+                            {
+                                listitem+="<tr><td id="+item+" style='color:#14b1bb'>" +namelist[item]+"</td><td>"
+                            }
+                            else listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>"
+
+                            listitem+= "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
                                 "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
                                 "</td></tr>";
                         }
@@ -584,8 +589,13 @@
                     var listitem="";
                     for(item in  namelist)
                     {
-                        listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
-                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item +")' '>"+
+                        if(namelist[item]==data['current'])
+                        {
+                            listitem+="<tr><td id="+item+" style='color:#14b1bb'>" +namelist[item]+"</td><td>"
+                        }
+                        else listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>"
+
+                        listitem+= "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
                             "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
                             "</td></tr>";
                     }
@@ -624,10 +634,17 @@
                     var listitem="";
                     for(item in  namelist)
                     {
-                        listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>" +
-                            "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
-                            "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
-                            "</td></tr>";
+                        if(namelist[item]==data['current'])
+                        {
+                            listitem+="<tr><td id="+item+" style='color:#14b1bb'>" +namelist[item]+"</td><td>"
+                        }
+                        else listitem+="<tr><td id="+item+">" +namelist[item]+"</td><td>"
+
+                        listitem+= "<input type='button' value='delete' id='del"+item+"'onclick='delRow(" + item + ")' '>"+
+                        "<input type='button'value='execute' onclick='Execute(" + item + ")'>"+
+                        "</td></tr>";
+
+
                     }
                     $("#filelist").html(listitem);
                     // window.location.reload();
