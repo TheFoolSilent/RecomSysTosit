@@ -3,6 +3,7 @@ package com.recomsys.demo.web;
 import com.alibaba.fastjson.JSONObject;
 import com.recomsys.demo.ml.Rec;
 import com.recomsys.demo.web.Entity.FileOp;
+import com.recomsys.demo.web.Util.fileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,7 @@ public class rootOpController {
                 msg.put("description", "Save file error");
             }
 
-            List<String> list_name = fileService.getFillList();
+            List<String> list_name = fileService.getFileList();
 
             msg.put("name_list", list_name);
             msg.put("current", fileService.getChooseData());
@@ -75,6 +76,7 @@ public class rootOpController {
 
         return msg.toJSONString();
     }
+
 
     /**
      * Operate File Function
@@ -116,7 +118,7 @@ public class rootOpController {
                     msg.put("description", "file not found or delete error");
                 }
 
-                List<String> list_name = fileService.getFillList();
+                List<String> list_name = fileService.getFileList();
 
                 msg.put("name_list", list_name);
                 msg.put("current", fileService.getChooseData());
@@ -168,8 +170,9 @@ public class rootOpController {
                 Rec rec = new Rec();
 
                 boolean flag = rec.chgTrainingData(fileService.path + choosedata);
+                boolean flag2 = rec.writeJobList();
 
-                if (flag) {
+                if (flag && flag2) {
                     msg.put("msg", "success");
                     msg.put("description", "model generation success");
 
@@ -189,9 +192,11 @@ public class rootOpController {
             msg.put("description", "Login Overdue");
             // return error json
         }
+        msg.put("current", fileService.getChooseData());
 
         return msg.toJSONString();
     }
+
 
     /**
      * Administer Page Initial
@@ -217,13 +222,14 @@ public class rootOpController {
         } else if (session.getAttribute("username").toString().equals("root")) {  // root login
             msg.put("msg", "success");
             msg.put("description", "delete Success");
-            List<String> list_name = fileService.getFillList();
+            List<String> list_name = fileService.getFileList();
 
             msg.put("name_list", list_name);
         }else{
             msg.put("msg", "error");
             msg.put("description", "Login Overdue");
         }
+        msg.put("current", fileService.getChooseData());
         return msg.toJSONString();
     }
 }

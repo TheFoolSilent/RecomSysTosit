@@ -436,35 +436,6 @@
 ========================================================= -->
 <script src="js/plugins.js"></script>
 
-<!-- Google Map js
-============================================ -->
-
-<!--		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLSFRa0DyBj9VGzT7GM6SFbSMcG0YNBM "></script>-->
-<!--		<script type="text/javascript" src="https://www.google.com/jsapi"></script>-->
-<!--		<script>-->
-<!--			function initialize() {-->
-<!--			  var mapOptions = {-->
-<!--				zoom: 15,-->
-<!--				scrollwheel: false,-->
-<!--				center: new google.maps.LatLng(23.763494, 90.432226)-->
-<!--			  };-->
-
-<!--			  var map = new google.maps.Map(document.getElementById('googleMap'),-->
-<!--				  mapOptions);-->
-
-
-<!--			  var marker = new google.maps.Marker({-->
-<!--				position: map.getCenter(),-->
-<!--				animation:google.maps.Animation.BOUNCE,-->
-<!--				icon: 'images/map-marker.png',-->
-<!--				map: map-->
-<!--			  });-->
-<!--                -->
-<!--			}-->
-<!--                -->
-<!--			google.maps.event.addDomListener(window, 'load', initialize);-->
-<!--		</script>-->
-
 <!-- Video Player JS
 ========================================================= -->
 <script src="js/jquery.mb.YTPlayer.js"></script>
@@ -488,6 +459,36 @@
 <!-- Main js file contents all jQuery plugins activation
 ========================================================= -->
 <script src="js/main.js"></script>
+
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/func.js"></script>
+<script>
+    function Execute(ojbl) {
+        // showLoading();
+        $.ajax({
+            url:'/train', /*接口域名地址*/
+            type:'post',
+            datatype:'json',
+            data: JSON.stringify({'filename':$("#"+ojbl).text()}),
+            contentType: 'application/json',
+            success: function (res) {
+                console.log(res);
+                var message = eval("("+res+")");
+                if(message.msg="success")
+                    // hideLoading();
+                alert("Execute Success!");
+
+
+            },
+            error:function()
+            {
+                alert("Error!");
+            }
+        })
+
+
+    }
+</script>
 
 <script type="text/javascript">
     function postData() {
@@ -514,8 +515,6 @@
         })
     }
 </script>
-
-<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 
 
 <script>//点击confirm进行文件添加并显示全部文件
@@ -659,38 +658,13 @@
     }
 
 </script>
-<script>
-    function Execute(ojbl) {
-        showLoading();
-        $.ajax({
-            url:'/train', /*接口域名地址*/
-            type:'post',
-            datatype:'json',
-            data: JSON.stringify({'filename':$("#"+ojbl).text()}),
-            contentType: 'application/json',
-            success: function (res) {
-                console.log(res);
-                var message = eval("("+res+")");
-                if(message.msg="success")
-                    hideLoading();
-                    alert("Execute Success!");
-
-
-            },
-            error:function()
-            {
-                alert("Error!");
-            }
-        })
-
-
-    }
-</script>
 
 
 
 
 
-<script type="text/javascript" src="js/func.js"></script>
+
+
+
 </body>
 </html>

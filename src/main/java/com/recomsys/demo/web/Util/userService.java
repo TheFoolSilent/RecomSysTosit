@@ -1,6 +1,7 @@
-package com.recomsys.demo.web;
+package com.recomsys.demo.web.Util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.recomsys.demo.JavaConf;
 import com.recomsys.demo.web.Entity.Question;
 import com.recomsys.demo.web.Entity.User;
 
@@ -21,8 +22,8 @@ import java.util.List;
 
 public class userService {
 
-    private static String path = "data/user.txt";
-    private static String feed_path = "data/feedback.txt";
+    private static String path = JavaConf.userPath;
+    private static String feed_path = JavaConf.feedPath;
 
     /**
      * read file：FileReader
@@ -67,6 +68,10 @@ public class userService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * check user login validation
+     * */
 
     public static User login(User user) {
         int flag = 0;

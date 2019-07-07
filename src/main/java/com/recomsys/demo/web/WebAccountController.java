@@ -2,6 +2,7 @@ package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.recomsys.demo.web.Entity.User;
+import com.recomsys.demo.web.Util.userService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

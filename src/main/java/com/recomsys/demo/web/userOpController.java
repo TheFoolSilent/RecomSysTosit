@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.recomsys.demo.ml.Rec;
 import com.recomsys.demo.web.Entity.Question;
 import com.recomsys.demo.web.Entity.Skill;
+import com.recomsys.demo.web.Util.fileService;
+import com.recomsys.demo.web.Util.searchUtil;
+import com.recomsys.demo.web.Util.userService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,14 +85,14 @@ public class userOpController {
 
                     if(skill.getWantjob().equals("")){
                         res = rec.skillRec(null, skill.getSkillset());
-                        System.out.println("NULLLLLLL");
+
                     }else {
 
                         List<String> joblist = fileService.readJobList();
                         HashMap<Integer, String> hashMap = new HashMap<>();
 
                         joblist.forEach((x) -> {
-                            hashMap.put(fileService.EditDistance(x, skill.getWantjob().trim()), x);
+                            hashMap.put(searchUtil.EditDistance(x, skill.getWantjob().trim()), x);
                         });
 
                         Set set = hashMap.keySet();

@@ -1,5 +1,6 @@
 package com.recomsys.demo.ml;
 
+import com.recomsys.demo.JavaConf;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -11,6 +12,8 @@ import org.apache.spark.mllib.fpm.FPGrowthModel;
 import org.apache.spark.mllib.linalg.Vectors;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.rdd.RDD;
+import org.glassfish.jersey.server.monitoring.RequestEvent;
+import org.mortbay.util.IO;
 import scala.Tuple2;
 import scala.Tuple3;
 
@@ -21,7 +24,7 @@ public class Rec {
 
     static SparkConf conf = new SparkConf().setMaster("local[*]").setAppName("Rec");
     static JavaSparkContext sc = new JavaSparkContext(conf);
-    static String FP_addr = "/home/hadoop/IdeaProjects/RecomSysdemo/module_save/FP";                //each groupName: longest freqItem
+    static String FP_addr = JavaConf.FPPath;                //each groupName: longest freqItem
     private String data_addr;        //address of training data
 
     //private KMeansModel kMeansModel;
@@ -167,6 +170,34 @@ public class Rec {
 
     private List<String> skillRec(List<String> skills) {
         return skillRec(jobRec(skills).get(0), skills);
+    }
+
+    public boolean writeJobList(){
+
+        try{
+            FileWriter writer = new FileWriter(JavaConf.jobListPath);
+
+            JavaRDD<String> jobrdd = preProcess().keys().distinct();
+            int num = Integer.valueOf(String.valueOf(jobrdd.count()));
+
+            List<String> lists = jobrdd.take(num);
+
+
+                lists.forEach((x) -> {
+                    try {
+                        writer.write(x + "\n");
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                });
+
+            writer.close();
+            return true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 //    public static void main(String[] args) {

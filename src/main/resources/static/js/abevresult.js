@@ -47,20 +47,19 @@ function reder() {
                             Frame+= "<div class='single-job-post fix'>"+
                                 "<div class='job-title col-4 pl-30'>"+
                                 "<span class='pull-left block mtb-17'>"+
-                                "<a href=''#'><img src='images/company-logo/1.png'></a>"+
+                                "<a href=''#'><img src='te2.png'></a>"+
                                 "</span>"+
                                 "<div class='fix pl-30 mt-29'>"+
                                 " <h4 class='mb-5'>"+datajson['job_list'][i]+"</h4>"+
-                                "<h5><a href='#'>Devitems</a></h5>"+
+                                "<h5><a href='#'></a></h5>"+
                                 "</div>"+
                                 "</div>"+
                                 "<div class='address col-4 pl-50'>"+
-                                " <span class='mtb-30 block'>2020 Willshire Glen,<br>"+
-                                "Alpharetta, GA-30009</span>"+
+                                " <span class='mtb-30 block'></span>"+
                                 "</div>"+
                                 "<div class='time-payment col-2 pl-60 text-center pt-22'>"+
-                                "<span class='block mb-6'>€ 200.00</span>"+
-                                "<a href='#' class='button button-red'>Full Time</a>"+
+                                "<span class='block mb-6'></span>"+
+                                "<a href='https://baike.baidu.com/item/"+datajson['job_list'][i]+"' target='_blank' class='button button-red'>Details</a>"+
                                 "</div>"+
                                 "</div>";
 
