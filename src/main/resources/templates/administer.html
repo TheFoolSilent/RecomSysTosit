@@ -396,6 +396,25 @@
 <!--End of Login Form-->
 
 
+
+<div class="modal fade" id="loadingModal" backdrop="static" keyboard="false">
+    　　
+    <div class="modal-dialog" role="document">
+        <div class="loader"style="padding-top: 50%;padding-left: 50%">
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+            <div class="face">
+                <div class="circle"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
 <!-- jquery latest version
 ========================================================= -->
 <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -625,6 +644,7 @@
 </script>
 <script>
     function Execute(ojbl) {
+        showLoading();
         $.ajax({
             url:'/train', /*接口域名地址*/
             type:'post',
@@ -635,7 +655,9 @@
                 console.log(res);
                 var message = eval("("+res+")");
                 if(message.msg="success")
+                    hideLoading();
                     alert("Execute Success!");
+
 
             },
             error:function()
