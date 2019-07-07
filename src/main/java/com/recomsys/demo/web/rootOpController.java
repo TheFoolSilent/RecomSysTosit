@@ -1,8 +1,7 @@
 package com.recomsys.demo.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.recomsys.demo.ml.JobRec;
-import com.recomsys.demo.ml.SkillRec;
+import com.recomsys.demo.ml.Rec;
 import com.recomsys.demo.web.Entity.FileOp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -166,19 +165,11 @@ public class rootOpController {
 
                 // Spark API
 
-                JobRec jobrec = new JobRec();
+                Rec rec = new Rec();
 
-                jobrec.setData_addr(fileService.path + choosedata);
+                boolean flag = rec.chgTrainingData(fileService.path + choosedata);
 
-                boolean job1 = jobrec.chgTrainingData();
-
-                SkillRec skillrec = new SkillRec();
-
-                skillrec.setData_addr(fileService.path + choosedata);
-
-                boolean skill1 = skillrec.chgTrainingData();
-
-                if (job1 && skill1) {
+                if (flag) {
                     msg.put("msg", "success");
                     msg.put("description", "model generation success");
 
